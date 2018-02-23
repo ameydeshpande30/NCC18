@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LOGIN-NCC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" >
+  
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/codingPage.css">
+  
+  
+  
+  
+  <script src="/static/jquery.min.js"></script>
+  
+  
+  
+ 
+  <script src="/static/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  
+  <style>
+  </style>
+  </head>
+  <body>
+  <nav class="navbar   navtop py-0" >
+  
+		<div class=" ncc " style="padding: 6px 6px 2px 6px;">  <img src="/static/NCC.png" width="50" height="45" alt=""> </div>
+  		<div class="col offset-md-1" style="font-size: 30px;" >National  'C'omputing  Contest</div>
+  		
+</nav>
+<div class="container-fluid">
+ <div class="row">
+
+<div class="ml-3 mr-4 mt-5  col-md-4 player">
+	<form action="/signup" method="post">
+	
+	<div class="playerhead">Player 1</div>
+	
+	<div class="form-group mt-3 pt-1 pb-1 col" >
+     
+	  <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:30px;"></i>
+	 
+
+      <input type="name" class="form-control text-center py-2" id="name" placeholder="Enter Name" name="p1name" required>
+    </div>
+    <div class="form-group col   pb-2">
+	
+      
+	  <i class="fa fa-envelope" aria-hidden="true" style="font-size:30px;"></i>
+
+      <input type="email" class="form-control text-center py-2" id="email" placeholder="Enter Email" name="p1email"  required>
+    </div>
+	<div class="form-group col pb-5">
+      
+	  	  <i class="fa fa-phone" aria-hidden="true" style="font-size:30px;"></i>
+      <input type="contact" class="form-control text-center py-2" id="contact" placeholder="Enter Contact No." pattern = "[789][0-9]{9}" name="p1mno"  required>
+    </div>
+
+</div>
+
+
+ <div class=" col-md-3 mx-3 mt-5  signup" style="">
+	 
+	 <div class="playerhead mb-3">Register</div>
+	 
+      <div class="form-group col mb-1">
+	   <i class="fa fa-user" aria-hidden="true" style="font-size:25px;"></i>
+      <input type="text"   class="form-control text-center py-2" placeholder="Enter Username" onkeyup="check(this.value)" name="uname"  required >
+      </div >
+	  <div class="col pb-1" >
+    <div class=" col" style="color:red;display:none;"  id="login_not">
+						 <i class="fa fa-exclamation-triangle" aria-hidden="true" style=""></i>
+                         Username already taken.</div>
+                    <div class="col" style="color: green;display:block;" id="login_ok">
+					 <i class="fa fa-check" aria-hidden="true" style=""></i>
+                         Username available.
+                    </div>
+					</div>
+    <div class="form-group col mt-1 mb-5">
+       <i class="fa fa-shield" aria-hidden="true" style="font-size:25px;"></i>
+      <input id="password" type="password" class="form-control text-center py-2" name="pass" placeholder="Enter Password"  required>
+    </div>
+       
+
+								
+									<div class=" row py-1 mb-4">
+									
+										<div class=" pt-1 offset-md-2 ">
+											<input type="radio"  name="optradio" id="11" >
+										</div>
+										
+										<div class="   text-center px-3 " id="1" style="font-size:20px;" >Junior </div>
+									
+									
+									
+									
+										<div class=" pt-1  ml-4  ">
+											<input type="radio"  name="optradio" id="22">
+										</div>
+										
+										<div class=" text-center px-3 pb-1" style="font-size:20px;" id="2"> Senior </div>
+									
+									
+    
+									
+								</div>
+	   
+	   
+		  <button type="submit" class="btn  btn-success col-md-3 mb-4" id="sub" >Log In</button>	
+
+		 </div>
+
+
+
+
+<div class=" mt-5 ml-4 col-md-4 player">
+	<form action="/signup" method="post">
+	
+	<div class="playerhead">Player 2</div>
+	
+	<div class="form-group mt-3 pt-1 pb-2 col" >
+     
+	  <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:30px;"></i>
+
+      <input type="name" class="form-control text-center py-2" id="name" placeholder="Enter Name" name="p2name" required>
+    </div>
+    <div class="form-group col   pb-1">
+	
+      <i class="fa fa-envelope" aria-hidden="true" style="font-size:30px;"></i>
+	  
+      <input type="email" class="form-control text-center py-2" id="email" placeholder="Enter Email" name="p2email"  required>
+    </div>
+	<div class="form-group col pb-5">
+      
+	  <i class="fa fa-phone" aria-hidden="true" style="font-size:30px;"></i>
+      <input type="contact" class="form-control text-center py-2" id="contact" placeholder="Enter Contact No." pattern = "[789][0-9]{9}" name="p2mno"  required>
+    </div>
+ 
+ 
+</div>
+
+</div>
+</form>
+<div class=" col-md-3 offset-md-4 pt-4"><img src="/static/ctd2.png" style="box-shadow: 4px 4px 7px rgba(0,0,0,0.8);border-radius:25px;margin-left:4.8vw;"  height="130" alt=""> </div>
+</div>
+
+
+
+
+
+<nav class="navbar fixed-bottom  navbot ">
+  <img src="/static/pisb.png" width="150" height="40" alt=""> 
+  <div class="col offset-md-3 " style="font-size:25px;color:black;">
+    PICT IEEE STUDENT BRANCH
+  </div> 
+</nav>
+
+  <script>
+  $(document).keydown(function(event) {
+						if (event.ctrlKey==true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109'  || event.which == '187'  || event.which == '189'  ) ) {
+        event.preventDefault();
+											}
+    // 107 Num Key  +
+    // 109 Num Key  -
+    // 173 Min Key  hyphen/underscor Hey
+    // 61 Plus key  +/= key
+		});
+
+		$(window).bind('mousewheel DOMMouseScroll', function (event) {
+       if (event.ctrlKey == true) {
+       event.preventDefault();
+       }
+		});
+		
+		$(document).ready(function(){
+    $("#11").ready(function(){
+        $("#1").addClass("name");
+        $("#11").attr('checked',true);
+
+        
+         
+       
+    });
+});	
+
+$(document).ready(function(){
+    $("#11").click(function(){
+        $("#1").addClass("name");
+         $("#2").removeClass("name");
+         
+       
+    });
+});
+
+$(document).ready(function(){
+    $("#22").click(function(){
+        $("#2").addClass("name");
+         $("#1").removeClass("name");
+        
+        
+    });
+});
+  </script>
+  </body>
+  </html>
+  

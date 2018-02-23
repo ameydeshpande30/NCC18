@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+   <title>CODEDITOR-NCC</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="codingPage.css">
+  <link rel="stylesheet" href="FlipClock-master/compiled/flipclock.css">
+   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" >
+  
+  
+  <script src="jquery.min.js"></script>
+  <script src="mousetrap.min.js"></script>
+  <script src="FlipClock-master/compiled/flipclock.min.js"></script>
+  <script src="ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+ 
+  <script src="popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  
+  <style>
+  .nav-pills > li > a.active {
+  background-color: rgba(0,0,0,0) !important;
+ box-shadow: 0px 1px 8px rgba(0,0,0,0.8);
+  color: green !important;
+  outline:none;
+  transition: 0.5s;
+}
+
+.nav-pills > li > a {
+  color: black !important;
+
+}
+
+
+</style>
+	
+</head>
+
+
+<body>
+
+
+  <nav class="navbar  navbar-light navtop py-0" >
+  
+		<div class="navbar-brand  ncc " style="padding: 6px 6px 2px 6px;">  <img src="NCC.png" width="50" height="45" alt=""> </div>
+  		<div style="font-size: 30px;" >National  'C'omputing  Contest</div>
+  		<a class="btn border border-success  " href="#" role="button">Leader Board</a>
+ 
+		<a class="btn border border-success " href="#" role="button">Question Hub</a>
+ 
+		<button class="btn mr-2 border border-success logout " type="button">Log Out <i class="fa fa-sign-out" style="font-size:20px;" aria-hidden="true" > </i></button>
+  
+</nav>
+
+
+<div class="container-fluid">
+	<form>
+	
+		<div class="row ">
+		
+			<div class="col-md-9   rounded ">
+			
+			
+				<ul class="nav nav-pills mt-2 nav-fill border border-success rounded" id="pills-tab" role="tablist">
+					
+					<li class="nav-item">
+					<a class="nav-link active" id="pills-home-tab" data-toggle="pill"   href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Problem</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"> <i class="fa fa-pencil" style="font-size:20px;" aria-hidden="true" > </i>Code Editor</a>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Submission</a>
+					</li>
+
+				</ul>
+				
+				
+				<div class="tab-content" id="pills-tabContent">
+				
+					<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+   						
+						<div class="  col-md-1   text-center py-0 mx-3 " style="font-size:25px;background-color:rgba(0,0,0,0.7);border-radius:10px 10px 0px 0px;color:white; margin-bottom:-0.027%;box-shadow: 3px  0px 0px rgba(255,255,255,0.6);">1</div>
+ 
+						
+   
+									<div class="form-group px-3">
+										<textarea class="form-control px-4 mousetrap" rows="18" id="comment" style="border-radius:0px 10px 10px 10px;color:white;box-shadow: 10px  6px 20px rgba(255,255,255,0.6);background-color:rgba(0,0,0,0.6);font-size:19px;cursor:pointer;overflow-y:scroll;" readonly></textarea>
+									</div>
+  
+  
+					</div>
+					
+						<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+						
+							<div class="row mx-1">
+								<div class="col-md-10  mt-1" style="height:550px;">
+								
+								
+								
+								
+								
+								
+								
+	<div  class=" my-2 " id="editor" style="box-shadow: 10px  6px 20px rgba(255,255,255,0.6);border-radius:10px;overflow-y: scroll;" >
+	function foo(items) 
+	{
+	var x = "All this is syntax highlighted";
+	return x;
+	}
+	</div>	
+		<textarea name="editor" style="display: none;" ></textarea>
+
+								</div>
+								
+								<div class="col-md-2  rounded mt-3">
+								
+									<div class=" row no-gutters mt-5 pt-2">
+									
+										<div class="radio col-md-2 mt-5 border border-dark rounded  pl-1 pt-3 ">
+											<input type="radio" name="optradio" id="11" >
+										</div>
+										
+										<div class="col border border-dark rounded mt-5 text-center" id="1" style="font-size:40px;" > C </div>
+									</div>
+									
+									<div class=" row no-gutters my-5 pt-2">
+									
+										<div class="radio col-md-2 border border-dark rounded pl-1 pt-3">
+											<input type="radio"  name="optradio" id="22">
+										</div>
+										
+										<div class="col border border-dark rounded text-center" style="font-size:40px;" id="2"> C++ </div>
+									</div>
+									
+    
+									<button  class=" btn border border-dark col mt-3 py-2" type="button" style="font-size:20px;font-weight:600;"> Load  Buffer</button>
+									<a href="#" class=" btn border border-dark col mt-5 py-2 " role="button" style="font-size:20px;font-weight:600;"> Submit</a>
+									
+								</div>
+  
+							</div>
+							
+							
+							<div class="row py-0" >
+							
+								<div class="form-group offset-md-1 col-md-8  px-0 ">
+									
+									<div class="input-group col-md-12 " >
+										<input type="file" name="img[]" class="file" accept=".c,.cpp">
+										
+										<input type="text" class="form-control border border-dark input-lg  rounded" readonly value="Upload Source File">
+										<span class="input-group-btn">
+										<button class="browse btn border border-dark input-lg" style="font-size:18px;font-weight:600;" type="button" > Browse</button>
+										</span>
+											<input type="submit" href="#" role="button" class="btn  border border-dark rounded col-md-2 mx-5 py-0 " style="font-size:18px;font-weight:600;" value="Upload">
+	
+									</div>
+
+								</div>
+								
+								
+							</div>
+						
+  
+						</div>
+						
+						
+						
+						<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+							<div class="  table-responsive mt-5 container -table" >
+							
+  
+								<table class="table table-striped">
+ <thead>
+    <tr>
+      <th scope="col">Sr No.</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Time</th>
+      <th scope="col">Status</th>
+	   <th scope="col">View</th>
+    </tr>
+	</thead>
+  
+  
+  <tbody >
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+	  <td>@mdo</td>
+    </tr>
+
+  </tbody>
+</table>	
+								 
+  
+							</div>
+							
+
+
+									</div>
+						
+				</div>
+			</div>
+			
+			<div class="col-md-3  mt-3">
+			
+			
+				<div class="no-gutters col-md-12 border border-success my-5  text-center py-2 name" style="font-size:23px;">SAJAY</div>
+
+			
+	   
+			
+			
+			<div class=" no-gutters col-md-12 row text-center  my-5  pl-5 pr-0 name"><p class="col-md-2 pt-3" style="font-size:25px;">RANK</p>
+			<div class=" offset-md-3  col-md-7 border border-success  text-center py-1 rank" style="font-size:40px;text-shadow: 4px 4px 10px black;font-weight:500;">1</div>
+			</div>
+	   
+			<div class=" no-gutters col-md-12 row text-center  my-5  pl-5 pr-0 name"><p class="col-md-2 pt-3" style="font-size:25px;">SCORE</p>
+			<div class=" offset-md-3  col-md-7 border border-success  text-center py-1 count  score" style="font-size:40px;color:rgb(0,255,0);text-shadow: 4px 4px 10px black;font-weight:500;">100</div>
+			</div>
+	   
+			<div class=" no-gutters col-md-12 border border-success text-center  mt-5 px-0  py-0 timetop ">
+			<div class=" no-gutters col-md-12   text-center py-2 my-4 clock px-0 time "></div>
+			</div>
+	   
+			</div>
+	   
+		</div>
+	</form>
+</div>
+<nav class="navbar fixed-bottom  navbot ">
+  <img src="pisb.png" width="150" height="40" alt=""> 
+  <div class="col offset-md-3 " style="font-size:25px;color:black;">
+    PICT IEEE STUDENT BRANCH
+  </div> 
+</nav>
+<script type="text/javascript">
+		var clock;
+		
+		$(document).ready(function() {
+			
+			clock = $('.clock').FlipClock({
+		        clockFace: 'HourlyCounter'
+		    });
+			clock.setTime(10800);
+		    clock.setCountdown(true);
+		    clock.start();
+		});
+		
+		
+
+		
+		$(document).keydown(function(event) {
+						if (event.ctrlKey==true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109'  || event.which == '187'  || event.which == '189'  ) ) {
+        event.preventDefault();
+											}
+    // 107 Num Key  +
+    // 109 Num Key  -
+    // 173 Min Key  hyphen/underscor Hey
+    // 61 Plus key  +/= key
+		});
+
+		$(window).bind('mousewheel DOMMouseScroll', function (event) {
+       if (event.ctrlKey == true) {
+       event.preventDefault();
+       }
+		});
+
+		
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/gruvbox");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    document.getElementById('editor').style.fontSize='14px';
+    document.getElementById('editor').style.opacity='0.8';
+
+	/*editor.session.getTextRange(editor.getSelectionRange());*/
+	
+	
+	
+var textarea = $('textarea[name="editor"]');
+editor.getSession().on("change", function () {
+    textarea.val(editor.getSession().getValue());
+});
+	
+	
+
+   
+
+ 
+	
+	$(document).on('click', '.browse', function(){
+	var file = $(this).parent().parent().parent().find('.file');
+		file.trigger('click');
+		});
+		
+		$(document).on('change', '.file', function(){
+		$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+		});
+		
+	$('.btn').mouseup(function() { this.blur() });
+	$('.filetop').mouseup(function() { this.blur() });
+	
+
+
+$(document).ready(function(){
+    $("#11").ready(function(){
+        $("#1").addClass("name1");
+        $("#11").attr('checked',true);
+
+        
+         
+       
+    });
+});	
+
+$(document).ready(function(){
+    $("#11").click(function(){
+        $("#1").addClass("name1");
+         $("#2").removeClass("name1");
+         
+       
+    });
+});
+
+$(document).ready(function(){
+    $("#22").click(function(){
+        $("#2").addClass("name1");
+         $("#1").removeClass("name1");
+        
+        
+    });
+});
+
+
+
+   var n=1;
+Mousetrap.bind('tab',  function (e) {
+  e.preventDefault();
+  
+   if(n==1){
+  $('#pills-tab li:first-child a').tab('show');
+
+   n=2;
+  } 
+
+  else if(n==2)
+  	{$('#pills-tab li:nth-child(2) a').tab('show');n=3;}
+  else {$('#pills-tab li:nth-child(3) a').tab('show');n=1;}
+  
+});
+
+
+$('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+
+
+	</script>
+</body>
+</html>
+
+	

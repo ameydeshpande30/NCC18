@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css" type="text/css" media="all">
+
+
+</head>
+
+<body>
+    <div class="container">
+    <div class="col-lg-6">
+    <form class="form-horizontal" method="post" action="/question">
+            {% csrf_token %}
+        <div class="form-group">
+            <label for="user">Username</label>
+            <input  class="form-control" type="text" id="user" name="uname" >
+        </div>
+
+        <div class="form-group">
+            <label for="user">Password</label>
+            <input  class="form-control" type="password" id="pass" name="password" >
+        </div>
+
+
+        <div class="form-group">
+            <label for="user">Player 1 Name</label>
+            <input  class="form-control" type="text" id="player1_name" name="p1name" required="required" >
+        </div>
+
+        <div class="form-group">
+            <label for="user">Player 2 Name</label>
+            <input  class="form-control" type="text" id="player2_name" name="p2name" >
+        </div>
+
+        <div class="form-group">
+            <label for="user">Player 1 Email</label>
+            <input  class="form-control" type="email" id="p1email" name="p1email" >
+        </div>
+
+        <div class="form-group">
+            <label for="user">Player 2 Email </label>
+            <input  class="form-control" type="email" id="p2email" name="p2email" >
+        </div>
+
+        <div class="form-group">
+            <label for="user">Player 1 phone</label>
+            <input  class="form-control" type="number" min=1000000000 max=9999999999 id="player1_phone" name="p1mno" >
+        </div>
+
+        <div class="form-group">
+            <label for="user">Player 2 phone</label>
+            <input  class="form-control" type="number" min=1000000000 max=9999999999 id="player2_phone" name="p2mno" >
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+
+    </form>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>

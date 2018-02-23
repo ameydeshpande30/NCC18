@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css" type="text/css" media="all">
+
+<style>
+
+
+</style>
+
+</head>
+<body>
+
+
+<h1 align="center">Leaderboard</h1>
+
+    <div class="container">
+    <table class="table table-striped">
+        <tr>
+            <td>Group Username</td>
+            <td>Total score</td>
+            <td>Total time</td>
+        </tr>
+
+        {%for c in pl%}
+        <tr>
+
+            <td>{{c.p1name}}</td>
+            <td>{{c.score}}</td>
+            <td style="display:none" id="{{forloop.counter}}">{{c.time}}</td>
+            <td id="time{{forloop.counter}}"></td>
+        </tr>
+        {%endfor%}
+
+    </table>
+    </div>
+
+<a href="/questions/">Questions</a>
+{% if count %}
+<p style="display:none" id="count">{{count}}</p>
+{% endif %}
+
+
+<form method="post" action="/logout/" >
+        {% csrf_token %}
+    <button type="submit">
+        Logout
+    </button>
+</form>
+
+
+<script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+
+<script>
+
+var c=document.getElementById("count").innerHTML
+
+for(var i=1;i<c+1;i++)
+{
+
+value=document.getElementById(String(i)).innerHTML
+var hours = Math.floor((value/3600));
+var remainder=Math.floor(value%3600);
+var minutes = Math.floor((remainder/(60)));
+var seconds = Math.floor((remainder % (60)));
+
+document.getElementById("time"+String(i)).innerHTML=(hours)+":"+minutes+":"+seconds;
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

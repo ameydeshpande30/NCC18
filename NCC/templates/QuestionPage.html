@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>QUESTIONHUB-NCC</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	  <link rel="stylesheet" href="/static/codingPage.css">
+	    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" >
+  
+
+    <!-- Custom CSS -->
+    <style>
+  
+    .play
+        {
+            
+            background-color: black;
+            
+            border-radius: 3px 4px 4px 3px;
+            opacity: .6;
+        }
+		.perc{background: green; text-align: center;color:white;
+		border-radius: 3px 4px 4px 3px;}
+    
+    td{text-align:center;font-size:20px;}
+   
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <nav class="navbar  navbar-light navtop py-0" >
+  
+		<div class="navbar-brand  ncc " style="padding: 6px 6px 2px 6px;">  <img src="/static/NCC.png" width="50" height="45" alt=""> </div>
+  		<div style="font-size: 30px;" >National  'C'omputing  Contest</div>
+		<button class="btn border border-success " style="opacity:0;"  href="/questionhub" role="button" disabled>Question Hub</button>
+  		<a class="btn border border-success  " href="#" role="button">Leader Board</a>
+ 
+		
+ 
+		<a href="/result"><button class="btn mr-2 border border-success logout "  type="button">Log Out <i class="fa fa-sign-out" style="font-size:20px;" aria-hidden="true" > </i></button></a>
+  
+</nav>
+    <div class="container mt-5 -table">
+        <table class="  table table-hover " >
+            <thead>
+                <tr>
+                    <th class="px-5 ">Q NO</th>
+                    <th class="px-5"  >QUESTION TITLE</th>
+                    <th class="px-5">ACCURACY</th>
+                    <th class="px-5">ATTEMPT</th>
+                    <th class="px-5">SUBMISSION</th>
+                    
+                </tr>
+            </thead>
+            <tbody >
+                <tr >
+                     <td > 1</td>
+                    <td >KNAPSACK PROBLEM</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 90%; ">90%</div></div></td>
+                    <td>
+                        <a type="submit" class="btn btn-lg btn-success" style="width:80%;" role="button" href="/test/1">Try it</a></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 40%; ">40%</div></div></td>
+                    
+                </tr>
+                 <tr >
+                     <td > 2</td>
+                    <td>QUEEN'S GAMBIT</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 90%; ">90%</div></div></td>
+                    <td>
+                        <a type="submit" class="btn btn-lg btn-success" style="width:80%;" role="button" href="/test/2">Try it</a></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 40%; ">40%</div></div></td>
+                    
+                </tr>
+				 <tr >
+                     <td > 3</td>
+                    <td>LISA'S HANDBOOK</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 90%; ">90%</div></div></td>
+                    <td>
+                        <a type="submit" class="btn btn-lg btn-success" style="width:80%;" role="button" href="/test/3">Try it</a></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 40%; ">40%</div></div></td>
+                    
+                </tr>
+				 <tr >
+                     <td > 4</td>
+                    <td>PRIM'S ALGORITHM</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 90%; ">90%</div></div></td>
+                    <td>
+                        <a type="submit" class="btn btn-lg btn-success" style="width:80%;" role="button" href="/test/4">Try it</a></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 40%; ">40%</div></div></td>
+                    
+                </tr>
+				 <tr >
+                     <td > 5</td>
+                    <td>KRUSAL'S ALGORITM</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 90%; ">90%</div></div></td>
+                    <td>
+                        <a type="submit" class="btn btn-lg btn-success" style="width:80%;" role="button" href="/test/5">Try it</a></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 40%; ">40%</div></div></td>
+                    
+                </tr>
+				 <tr >
+                     <td > 6</td>
+                    <td>SAJAY</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 90%; ">90%</div></div></td>
+                    <td>
+                        <a type="submit" class="btn btn-lg btn-success" style="width:80%;" role="button" href="/test/6">Try it</a></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: 40%; ">40%</div></div></td>
+                    
+                </tr>
+                 
+                 
+            </tbody>
+        </table>
+    </div>
+    
+ <nav class="navbar fixed-bottom  navbot ">
+  <img src="pisb.png" width="150" height="40" alt=""> 
+  <div class="col offset-md-3 " style="font-size:25px;color:black;">
+    PICT IEEE STUDENT BRANCH
+  </div> 
+</nav>
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+    <script src="/static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
+	<script>$(document).keydown(function(event) {
+						if (event.ctrlKey==true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109'  || event.which == '187'  || event.which == '189'  ) ) {
+        event.preventDefault();
+											}
+    // 107 Num Key  +
+    // 109 Num Key  -
+    // 173 Min Key  hyphen/underscor Hey
+    // 61 Plus key  +/= key
+		});
+
+		$(window).bind('mousewheel DOMMouseScroll', function (event) {
+       if (event.ctrlKey == true) {
+       event.preventDefault();
+       }
+		});</script>
+
+</body>
+
+</html>

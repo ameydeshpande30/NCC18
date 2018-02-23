@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<form action="/code/{{x}}" method="post">
+    {% csrf_token %}
+  C/C++ <input type="text" name="code"/><br>
+Code :-<textarea id="confirmationText" class="text" cols="86" rows ="20" name="text" ></textarea>
+  <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

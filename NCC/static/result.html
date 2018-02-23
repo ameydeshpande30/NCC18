@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LOGIN-NCC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" >
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="codingPage.css">
+  
+  <style>
+  .rank
+{
+	border-radius:15px;
+	background-color:rgba(0,0,0,0.6);
+	color:white;
+	box-shadow: 7px 7px 8px rgba(255,255,255,0.8);
+	cursor: pointer;
+	transition-duration: 0.5s;
+}
+
+.ranktop
+{
+	border-radius:15px;
+	cursor: pointer;
+	box-shadow: 3px 3px 10px rgba(0,0,0,0.8);
+}
+
+.score
+{
+	border-radius:20px;
+	background-color:rgba(0,0,0,0.6);
+	color:white;
+	box-shadow: 7px 7px 10px rgba(255,255,255,0.8);
+	cursor: pointer;
+	transition-duration: 0.5s;
+}
+.scoretop
+{
+	border-radius:15px;
+	
+	cursor: pointer;
+	box-shadow:  3px 3px 10px rgba(0,0,0,0.8);
+}
+  </style>
+  
+  
+  <script src="jquery.min.js"></script>
+  
+  
+  
+ 
+  <script src="popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  
+  <style>
+  </style>
+  </head>
+  <body>
+  <nav class="navbar   navtop py-0" >
+  
+		<div class=" ncc " style="padding: 6px 6px 2px 6px;">  <img src="NCC.png" width="50" height="45" alt=""> </div>
+  		<div class="col offset-md-1" style="font-size: 30px;" >National  'C'omputing  Contest</div>
+  		
+</nav>
+<div class="container ">
+
+<div class="col-md-12 text-center mt-4">
+
+<a class="btn col pt-0" id="collapseExample" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+    <div class="playerhead " style="font-size:50px;">Your Final Result <i class="fa fa-envelope-open" aria-hidden="true" > </i>
+	 </div>
+  </a>
+  <div class="collapse" id="collapseExample1">
+  
+ <div class="container row text-center " >
+ <div class="col-md-6">
+  <div class=" offset-lg-2 col-lg-8  text-center  my-5  ranktop"><p class="pt-3" style="font-size:50px; font-family:vera;">Rank</p>
+			<div class=" offset-lg-2 col-lg-8 border border-info  text-center py-2 mb-4 rank " style="font-size:60px;text-shadow: 4px 4px 10px black;font-family:vera;">1</div>
+			</div>
+ </div>
+ <div class="col-md-6">
+ 
+ 
+			<div class=" offset-lg-2 col-lg-8  text-center  my-5 scoretop"><p class="pt-3" style="font-size:50px;font-family:vera;">Score</p>
+			<div class=" offset-lg-2 col-lg-8 border border-info  text-center py-2 mb-4 count score" style="font-size:60px;color:rgb(0,255,0);text-shadow: 4px 4px 10px black;font-family:vera;">100</div>
+			</div></div>
+ </div>
+ 
+</div>
+
+<div class=" col-md-3 offset-md-4 pt-4"><img src="ctd2.png" style="box-shadow: 4px 4px 7px rgba(0,0,0,0.8);border-radius:25px;"  height="150" alt=""> </div>
+</div>
+  
+  
+  
+  
+  
+  
+
+
+
+</div>
+
+</div>
+
+<nav class="navbar fixed-bottom  navbot ">
+  <img src="pisb.png" width="150" height="40" alt=""> 
+  <div class="col offset-md-3 " style="font-size:25px;color:black;">
+    PICT IEEE STUDENT BRANCH
+  </div> 
+</nav>
+    
+	<script>$(document).keydown(function(event) {
+						if (event.ctrlKey==true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109'  || event.which == '187'  || event.which == '189'  ) ) {
+        event.preventDefault();
+											}
+    // 107 Num Key  +
+    // 109 Num Key  -
+    // 173 Min Key  hyphen/underscor Hey
+    // 61 Plus key  +/= key
+		});
+
+		$(window).bind('mousewheel DOMMouseScroll', function (event) {
+       if (event.ctrlKey == true) {
+       event.preventDefault();
+       }
+		});
+		
+		$(document).ready(function(){
+		 setTimeout(function(){   $("#collapseExample").click(); }, 1000);
+		});
+		
+		
+		
+		$(document).ready(function(){
+		setTimeout(function(){
+		
+		$('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+},1100);});
+</script>
+
+</body>
+
+</html>
