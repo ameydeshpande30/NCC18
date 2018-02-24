@@ -113,7 +113,7 @@
 	}
 	</div>	
 	
-		<textarea name="editor" id="editorText" style="display: none;" >
+		<textarea name="editorta" id="editorText" style="display: none;" >
 			
 			function foo(items) 
 	{
@@ -130,7 +130,7 @@
 									<div class=" row no-gutters mt-5 pt-2">
 									
 										<div class="radio col-md-2 mt-5 border border-dark rounded  pl-1 pt-3 ">
-											<input type="radio" name="optradio" id="11"  value="0">
+											<input type="radio" name="optradioc" id="11"  value="1">
 										</div>
 										
 										<div class="col border border-dark rounded mt-5 text-center" id="1" style="font-size:40px;" > C </div>
@@ -139,7 +139,7 @@
 									<div class=" row no-gutters my-5 pt-2">
 									
 										<div class="radio col-md-2 border border-dark rounded pl-1 pt-3">
-											<input type="radio"  name="optradio" id="22" value="1">
+											<input type="radio"  name="optradioc" id="22" value="2">
 										</div>
 										
 										<div class="col border border-dark rounded text-center" style="font-size:40px;" id="2"> C++ </div>
@@ -270,7 +270,7 @@
 	</form>
 </div>
 <nav class="navbar fixed-bottom  navbot ">
-  <img src="pisb.png" width="150" height="40" alt=""> 
+  <img src="/static/pisb.png" width="150" height="40" alt=""> 
   <div class="col offset-md-3 " style="font-size:25px;color:black;">
     PICT IEEE STUDENT BRANCH
   </div> 
@@ -318,7 +318,7 @@
 	
 	
 	
-var textarea = $('textarea[name="editor"]');
+var textarea = $('textarea[name="editorta"]');
 editor.getSession().on("change", function () {
     textarea.val(editor.getSession().getValue());
 });

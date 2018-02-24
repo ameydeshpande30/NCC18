@@ -91,10 +91,10 @@ def loadbuff(request):
     u = request.user.username
     file = upath + "/" + str(u) + "/" + str(x) + "/" + str("lbf")
     f = open(file, "r")
-    data = f.read()
-    if not data:
-        data = "hello"
-    response_data["data"] = data
+    text = f.read()
+    if not text:
+        data = ""
+    response_data["text"] = text
     return JsonResponse(response_data)
 
 
@@ -144,11 +144,12 @@ def log_out(request):
 
 
 def CodeSave(request):
-    codeValue = request.POST.get("optradio")
+    codeValue = request.POST.get("optradioc")
     print(codeValue)
-    text = request.POST["editor"]
+    text = request.POST.get("editorta")
     code = "c"
-    if codeValue is not 0:
+    cv = int(codeValue)
+    if cv == 2:
         code = "cpp"
     print(text)
     u = request.user.username
@@ -169,8 +170,9 @@ def CodeSave(request):
     with open(lfile, 'w') as f:
         f.write(str(text) + '\n')
     ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
+    #ans = ans[::-1]
     ans = int(ans)
-    ans = ans[::-1]
+
     tc1 = 0
     tc2 = 0
     tc3 = 0
