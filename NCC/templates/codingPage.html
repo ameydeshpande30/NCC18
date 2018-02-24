@@ -45,14 +45,14 @@
 
   <nav class="navbar  navbar-light navtop py-0" >
   
-		<div class="  ncc " style="padding: 6px 6px 2px 6px;">  <img src="/static/NCC.png" width="50" height="45" alt=""> </div>
-  		<div class="col-md-6"style="font-size: 30px;" >National  'C'omputing  Contest</div>
+		<div class="navbar-brand  ncc " style="padding: 6px 6px 2px 6px;">  <img src="/static/NCC.png" width="50" height="45" alt=""> </div>
+  		<div style="font-size: 30px;" >National  'C'omputing  Contest</div>
   		<a class="btn border border-success  " href="#" role="button">Leader Board</a>
  
 		<a class="btn border border-success " href="/questionhub" role="button">Question Hub</a>
  
 		<a href="/result"><button class="btn mr-2 border border-success logout " href="/result" type="button">Log Out <i class="fa fa-sign-out" style="font-size:20px;" aria-hidden="true" > </i></button></a>
-  		<img src="/static/isc.gif" width="150" height="50" alt=" ">
+  
 </nav>
 
 
@@ -83,7 +83,7 @@
 				
 					<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
    						
-						<div class="  col-md-1   text-center py-0 mx-3 " style="font-size:25px;background-color:rgba(0,0,0,0.7);border-radius:10px 10px 0px 0px;color:white; margin-bottom:-0.027%;box-shadow: 3px  0px 0px rgba(255,255,255,0.6);">1<!---Backend please update the question number in this section--></div>
+						<div class="  col-md-1   text-center py-0 mx-3 " style="font-size:25px;background-color:rgba(0,0,0,0.7);border-radius:10px 10px 0px 0px;color:white; margin-bottom:-0.027%;box-shadow: 3px  0px 0px rgba(255,255,255,0.6);">1</div>
  
 						
    
@@ -270,10 +270,10 @@
 	</form>
 </div>
 <nav class="navbar fixed-bottom  navbot ">
-
-  <div class="col text-center" style="font-size:25px;color:black;">
-  COPYRIGHT<i class="fa fa-copyright" aria-hidden="true" style="font-size:25px;"></i>  PICT IEEE STUDENT BRANCH
-  </div>
+  <img src="/static/pisb.png" width="150" height="40" alt=""> 
+  <div class="col offset-md-3 " style="font-size:25px;color:black;">
+    PICT IEEE STUDENT BRANCH
+  </div> 
 </nav>
 <script type="text/javascript">
 		var clock;
@@ -287,40 +287,6 @@
 		    clock.setCountdown(true);
 		    clock.start();
 		});
-		var seconds = {{rt}};
-
-function secondPassed() {
-console.log();
-
-  var minutes = Math.round((seconds - 30)/60);
-
-  var remainingSeconds = seconds % 60;
-
-  if (remainingSeconds < 10) {
-
-    remainingSeconds = "0" + remainingSeconds;  
-
-  }
-
-  //document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
-
-  if (seconds == 0) {
-
-    clearInterval(countdownTimer);
-
-    window.location.assign('/logout')
-
-  } else {
-
-    seconds--;
-
-  }
-
-}
-
-
-
-var countdownTimer = setInterval('secondPassed()', 1000);
 		
 		
 
