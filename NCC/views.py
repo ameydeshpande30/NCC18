@@ -17,7 +17,7 @@ def addsTime():
     now = datetime.datetime.now()
     print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
-    startTime = time + 1 * 30
+    startTime = time + 1 * 60
     print(startTime)
 
 
