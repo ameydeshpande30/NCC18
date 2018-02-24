@@ -283,10 +283,44 @@
 			clock = $('.clock').FlipClock({
 		        clockFace: 'HourlyCounter'
 		    });
-			clock.setTime(10800);
+			clock.setTime({{rt}});
 		    clock.setCountdown(true);
 		    clock.start();
 		});
+		var seconds = {{rt}};
+
+function secondPassed() {
+console.log();
+
+  var minutes = Math.round((seconds - 30)/60);
+
+  var remainingSeconds = seconds % 60;
+
+  if (remainingSeconds < 10) {
+
+    remainingSeconds = "0" + remainingSeconds;  
+
+  }
+
+  //document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+
+  if (seconds == 0) {
+
+    clearInterval(countdownTimer);
+
+    window.location.assign('/logout')
+
+  } else {
+
+    seconds--;
+
+  }
+
+}
+
+
+
+var countdownTimer = setInterval('secondPassed()', 1000);
 		
 		
 
