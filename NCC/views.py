@@ -114,9 +114,12 @@ def test(request):
     x = x[-1]
     x = str(x)
     q = Attempt.objects.all().filter(user=request.user, qid=x)
+    score = request.user.player.score
     context = {
         'x': x,
-        'q': q
+        'q': q,
+        'score':score,
+        'rank':1
 
     }
 
