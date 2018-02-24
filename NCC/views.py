@@ -8,10 +8,37 @@ import os
 
 upath = ""
 totalquestion = 6
+endtime = 0
+startTime = 0
 
 
 def start(request):
     return render(request, 'signup.html')
+
+
+def setEndtime(request):
+    addtime = request.GET["time"]
+    now = datetime.datetime.now()
+    time = now.second + now.minute * 60 + now.hour * 60 * 60
+    endtime = time + addtime
+
+
+def checkTimeslot(request):
+    now = datetime.datetime.now()
+    time = now.second + now.minute * 60 + now.hour * 60 * 60
+    if time < (endtime + request.user.player.time) and time > startTime:
+        return 1
+    else:
+        return 0
+
+
+def checkuser(request):
+    if request.user.is_authenticated:
+        print("1")
+        return 1
+    else:
+        print("0")
+        return 0
 
 
 def signup(request):
@@ -26,8 +53,9 @@ def signup(request):
         p1mno = request.POST.get("p1mno")
         p2mno = request.POST.get("p2mno")
         level = request.POST.get("optradio")
-        now = datetime.datetime.now()
-        time = now.second + now.minute * 60 + now.hour * 60 * 60
+        #now = datetime.datetime.now()
+        #time = now.second + now.minute * 60 + now.hour * 60 * 60
+        time = 0
         user = User.objects.create_user(username=uname, email=p1email, password=password)
         user_object = Player.objects.create(pid=user, p1name=p1name, p2name=p2name, p1email=p1email, p2email=p2email,
                                             p1mno=p1mno, p2mno=p2mno, score=0, time=time)
@@ -87,7 +115,6 @@ def loadbuff(request):
     response_data = {}
     x = request.get_full_path().split('/')
     x = x[-1]
-    q = x
     u = request.user.username
     file = upath + "/" + str(u) + "/" + str(x) + "/" + str("lbf")
     f = open(file, "r")
@@ -118,8 +145,8 @@ def test(request):
     context = {
         'x': x,
         'q': q,
-        'score':score,
-        'rank':1
+        'score': score,
+        'rank': 1
 
     }
 
@@ -158,7 +185,7 @@ def CodeSave(request):
     u = request.user.username
     print(u)
     now = datetime.datetime.now()
-    time = now.second + now.minute * 60
+    time = now.second + now.minute * 60 + now.hour * 60 * 60
     x = request.get_full_path().split('/')
     x = x[-1]
     q = x
@@ -173,7 +200,7 @@ def CodeSave(request):
     with open(lfile, 'w') as f:
         f.write(str(text) + '\n')
     ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
-    #ans = ans[::-1]
+    # ans = ans[::-1]
     ans = int(ans)
 
     tc1 = 0
@@ -183,13 +210,13 @@ def CodeSave(request):
     tc5 = 0
     tc6 = 0
     print(ans)
-    tcOut = [0,1,2,3,4]
+    tcOut = [0, 1, 2, 3, 4]
     switch = {
-        10:0,
-        99:1,
-        50:2,
-        89:3,
-        70:4
+        10: 0,
+        99: 1,
+        50: 2,
+        89: 3,
+        70: 4
 
     }
     for i in range(0, 5):
