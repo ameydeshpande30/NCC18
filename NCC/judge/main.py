@@ -4,6 +4,7 @@ from comparator import compare
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 user_dir = base_dir + "/USERS"
+error_dir = base_dir + "/USERS"
 description_dir = base_dir + "/standard/description"
 input_dir = base_dir + "/standard/input"
 output_dir = base_dir + "/standard/output"
@@ -39,12 +40,12 @@ def run_testcase(i, exec_file, uid, qid):
     return res
 
 
-def compile(src_userfile, exec_file, ext):
+def compile(src_userfile, exec_file, ext, error_file):
     a = 1
     if (ext == 'c'):
-        a = os.system("gcc " + src_userfile + " -o " + exec_file + " -lm")
+        a = os.system("gcc " + src_userfile + " -o " + exec_file + " -lm 2>" + error_file)
     elif (ext == "cpp"):
-        a = os.system("g++ " + src_userfile + " -o " + exec_file + " -lm")
+        a = os.system("g++ " + src_userfile + " -o " + exec_file + " -lm 2>" + error_file)
     return a
 
 
@@ -56,17 +57,21 @@ def main():
     qid = sys.argv[3]
     # print uid,qid,sid
 
-    src_userfile = user_dir + "/" + uid + "/" + qid + "/" + filename
-    exec_file = user_dir + "/" + uid + "/" + qid + "/" + filename.split(".")[0]
-    # error_file=error_dir+"/"+uid+"/"+filename.split(".")[0]		#need to check existence before using
+    src_userfile = user_dir + "/" + uid + "/" + qid  + "/" + filename
+    exec_file = user_dir + "/" + uid + "/" + qid  + "/" + filename.split(".")[0]
+    error_file = error_dir+"/"+uid+"/error.txt"	#need to check existence before using
     res = []
-    # if(os.path.isfile(error_file)==False):
-    # error_fd=os.open(error_file, os.O_RDONLY|os.O_CREAT)
-    # os.close(error_fd)
-    a = compile(src_userfile, exec_file, ext)  # exec_file created after compilation
+    if(os.path.isfile(error_file)==False):
+        error_fd=os.open(error_file, os.O_RDONLY|os.O_CREAT)
+        os.close(error_fd)
+    else:
+        os.remove(error_file)
+        error_fd = os.open(error_file, os.O_RDONLY | os.O_CREAT)
+        os.close(error_fd)
+    a = compile(src_userfile, exec_file, ext, error_file)  # exec_file created after compilation
 
     if (a == 0):
-        # os.remove(error_file)			#removes files only not directory removedirs to remove dir
+        os.remove(error_file)			#removes files only not directory removedirs to remove dir
         for i in range(0,5):
             r = run_testcase(i, exec_file, uid, qid)
             res.append(r)

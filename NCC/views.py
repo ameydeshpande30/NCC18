@@ -5,12 +5,18 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 import datetime
 import os
+import string
 
 upath = ""
 totalquestion = 6
 endtime = 0
 startTime = 0
+TotalUser = Player.objects.all().count()
 
+def addquestion():
+    q = Questions.objects.create(title="Test Question",completeques="this is the /n question",
+    qid=1,qlevel=0,ac=0)
+    q.save()
 
 def addsTime():
     global startTime
@@ -94,8 +100,8 @@ def sendpage(request, exitcode):
         return HttpResponse("Leaderboard")
     else:
         return start(request)
-
-
+print(TotalUser)
+print(TotalUser)
 def signup(request):
     print(request.method)
     if request.method == 'POST':
@@ -119,8 +125,7 @@ def signup(request):
                                             q5_score=0, q6_score=0, subtime=0, level=level, rank=0)
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
-
-        print(uname)
+        print(TotalUser)
 
         login(request, u2)
 
@@ -166,13 +171,16 @@ def testp(request):
 
 
 def setRank(request):
-    p = Player.objects.all().filter(leve=request.user.player.level).order_by("-score", "subtime", "id")
+    p = Player.objects.all().filter(level=request.user.player.level).order_by("-score", "subtime", "id")
     count = 0
+
     for i in p:
         count = count + 1
         if i.pid == request.user:
-            i.rank = count
-            return
+            p = Player.objects.get(pid = i.pid)
+            p.rank = count
+            p.save()
+            return 1
 
 
 def loadbuff(request):
@@ -206,11 +214,12 @@ def test(request):
     x = str(x)
     q = Attempt.objects.all().filter(user=request.user, qid=x)
     score = request.user.player.score
+    setRank(request)
     context = {
         'x': x,
         'q': q,
         'score': score,
-        'rank': 1,
+        'rank': request.user.player.rank,
         'rt': rtime(request)
 
     }
@@ -231,7 +240,13 @@ def leaderboard(request):
 
 
 def questionhub(request):
-    return render(request, 'QuestionPage.html', )
+    q = Questions.objects.all().filter(qlevel = request.user.player.level)
+    print(q.filter(qid=1))
+    context={
+        'q1':q.get(qid=1),
+        'tu':TotalUser
+    }
+    return render(request, 'QuestionPage.html', context )
 
 
 def log_out(request):
@@ -239,8 +254,7 @@ def log_out(request):
     score = u.player.score
     context = {
         'score': score,
-        'rank': 1,
-
+        'rank': u.player.rank,
     }
     logout(request)
     return render(request, 'result.html', context)
@@ -252,19 +266,20 @@ def CodeSave(request):
     if logincheck(request) == 0:
         return start(request)
     codeValue = request.POST.get("optradioc")
-    print(codeValue)
+    #print(codeValue)
     text = request.POST.get("editorta")
     code = "c"
     cv = int(codeValue)
     if cv == 2:
         code = "cpp"
-    print(text)
+    #print(text)
     u = request.user.username
-    print(u)
+    #print(u)
     now = datetime.datetime.now()
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     x = request.get_full_path().split('/')
     x = x[-1]
+    q = x
     qscore = {
         '1': "q1_score",
         '2': "q2_score",
@@ -274,7 +289,7 @@ def CodeSave(request):
         '6': "q6_score"
     }
     data = [1, 2, 3, 4, 5]
-    print(upath)
+    #print(upath)
     file = upath + "/" + str(u) + "/" + str(x) + "/" + str(time) + "." + str(code)
     lfile = upath + "/" + str(u) + "/" + str(x) + "/" + str("lbf")
     mysub = Attempt.objects.create(user=request.user, qid=str(x), time=time, ext=str(code), status="Testing")
@@ -283,10 +298,10 @@ def CodeSave(request):
         f.write(str(text) + '\n')
     with open(lfile, 'w') as f:
         f.write(str(text) + '\n')
-    ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + x).read()
+    ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
     # ans = ans[::-1]
     ans = int(ans)
-    print(ans)
+    #print(ans)
     tcOut = [0, 1, 2, 3, 4]
     switch = {
         10: 0,
@@ -303,20 +318,33 @@ def CodeSave(request):
         if tcOut[i] == 0:
             score = score + 20
     print(tcOut)
-
+    cerror = " "
+    if tcOut[4] == 3:
+        error = upath + "/" + str(u) + "/" + str("error.txt")
+        with open(error, 'r') as e:
+            cerror = e.read()
+        change = str(x) + "." +str(code)
+        print("in")
+        cerror = str.replace(cerror, file, change)
     # score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
+
     context = {
         'tc10': tcOut[4],
         'tc20': tcOut[3],
         'tc30': tcOut[2],
         'tc40': tcOut[1],
         'tc50': tcOut[0],
-        'score': score
+        'score': score,
+        'error': cerror
     }
     u = request.user
     s = u.player
     sv = getattr(s, qscore[x])
     if sv < score:
+        if score == 100:
+            q = Questions.object.get(qid = x)
+            q.ac = q.ac + 1
+            q.qsub = q.qsub + 1
         s.score = s.score + score - qscore[x]
         s.qscore[x] = score
         setattr(s, qscore[x], score)
@@ -328,9 +356,9 @@ def CodeSave(request):
 def leaderboard(request):
     count = Player.objects.all().count()
     p = Player.objects.all().order_by('-score', 'time', 'p1name')
-
+    print(p)
     context = {
-        'pl': p,
+        'p': p,
         'count': count
     }
     return render(request, 'leaderboard.html', context)
@@ -344,7 +372,7 @@ def MySubmissions(request):
     x = x[-1]
     u = request.user.username
     file = upath + "/" + str(u) + "/" + str(x) + "/" + filename + "." + ext
-    print(file)
+    #print(file)
     f = open(file, "r")
     data = f.read()
     response_data["file"] = data

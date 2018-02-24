@@ -36,10 +36,12 @@ class Questions(models.Model):
     completeques = models.CharField(max_length=120)
     qid = models.IntegerField(default=0)
     ac = models.IntegerField(default=0)
+    qlevel = models.IntegerField(default=0)
+    qsub = models.IntegerField(default=0)
 
     def __str__(self):
-        qid = str(self.qid)
-        return self.title + " " + self.qid
+        qidv = str(self.qid)
+        return self.title + " " + qidv
 
 
 class Attempt(models.Model):

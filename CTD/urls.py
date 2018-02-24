@@ -21,6 +21,7 @@ views.set()
 views.addsTime()
 urlpatterns = [
     url(r'^coding',views.coding),
+    url(r'^checkuse',views.checkuser),
     url(r'^result',views.log_out),
     url(r'^questionhub',views.questionhub),
     url(r'^mysub',views.MySubmissions),

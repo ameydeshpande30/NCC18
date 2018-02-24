@@ -154,6 +154,7 @@
   <img src="/static/pisb.png" width="150" height="40" alt=""> 
   <div class="col offset-md-3 " style="font-size:25px;color:black;">
     PICT IEEE STUDENT BRANCH
+      {{error}}
   </div> 
 </nav>
     
@@ -286,7 +287,7 @@
                 else if(tc>0)
                 document.getElementById("text").innerHTML="ACCEPTED";
             else
-                document.getElementById("text").innerHTML="WRONG OUTPUT or COMPILATION ERROR";
+                document.getElementById("text").innerHTML="WRONG OUTPUT or COMPILATION ERROR ";
             
             clearInterval(id);
         }
