@@ -11,20 +11,22 @@ totalquestion = 6
 endtime = 0
 startTime = 0
 
+
 def addsTime():
     global startTime
     now = datetime.datetime.now()
     print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
-    startTime = time + 3*60
+    startTime = time + 1 * 30
     print(startTime)
+
 
 def start(request):
     if checkTimeslot(request) == 1:
-        context ={
-            'rt':rtime(request)
+        context = {
+            'rt': rtime(request)
         }
-        return render(request, 'instructions.html',context)
+        return render(request, 'instructions.html', context)
     else:
         print(checkTimeslot(request))
         return render(request, 'signup.html')
@@ -41,14 +43,16 @@ def setEndtime(request):
 def checkTimeslot(request):
     now = datetime.datetime.now()
     time = now.second + now.minute * 60 + now.hour * 60 * 60
+    addt = 0
+    if logincheck(request) == 1:
+        addt = request.user.player.time
     print(startTime)
     if time < startTime:
         return 1
-    elif time > (endtime + request.user.player.time) :
+    elif time > (endtime + addt):
         return 2
     else:
         return 0
-
 
 
 def logincheck(request):
@@ -59,17 +63,19 @@ def logincheck(request):
         print("0")
         return 0
 
+
 def pagecheck(request):
     t = checkTimeslot(request)
-    if  t == 0 and logincheck(request) == 1:
+    if t == 0 and logincheck(request) == 1:
         return 0
     else:
         if t == 1:
             return 1
         elif t == 2:
             return 2
-        else :
+        else:
             return 3
+
 
 def rtime(request):
     now = datetime.datetime.now()
@@ -80,7 +86,7 @@ def rtime(request):
         return startTime - time
 
 
-def sendpage(request,exitcode):
+def sendpage(request, exitcode):
     if exitcode == 1:
         return render("waiting Page")
     elif exitcode == 2:
@@ -101,14 +107,15 @@ def signup(request):
         p1mno = request.POST.get("p1mno")
         p2mno = request.POST.get("p2mno")
         level = request.POST.get("optradio")
-        #now = datetime.datetime.now()
-        #time = now.second + now.minute * 60 + now.hour * 60 * 60
+        # now = datetime.datetime.now()
+        # time = now.second + now.minute * 60 + now.hour * 60 * 60
         time = 0
         user = User.objects.create_user(username=uname, email=p1email, password=password)
-        user_object = Player.objects.create(pid=user, p1name=p1name, p2name=p2name, p1email=p1email, p2email=p2email,
+        user_object = Player.objects.create(pid=user, p1name=p1name, p2name=p2name, p1email=p1email,
+                                            p2email=p2email,
                                             p1mno=p1mno, p2mno=p2mno, score=0, time=time,
-                                            q1_score = 0, q2_score = 0, q3_score = 0,q4_score = 0,
-                                            q5_score=0,q6_score = 0,)
+                                            q1_score=0, q2_score=0, q3_score=0, q4_score=0,
+                                            q5_score=0, q6_score=0, subtime=0,level=level,rank=0)
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
 
@@ -156,7 +163,14 @@ def testp(request):
     }
     return render(request, "codingPage.html", context)
 
-
+def setRank(request):
+    p = Player.objects.all().filter(leve =request.user.player.level).order_by("-score", "subtime","id")
+    count = 0
+    for i in p:
+        count = count + 1
+        if i.pid == request.user:
+            i.rank = count
+            return
 
 
 def loadbuff(request):
@@ -205,12 +219,14 @@ def test(request):
 def coding(request):
     return render(request, "codingPage.html")
 
+
 def leaderboard(request):
-    p=Player.objects.all().order_by("-score")
-    context={
+    p = Player.objects.all().order_by("-score","subtime")
+    context = {
         'p': p
     }
-    return render(request, "leaderboard.html",context)
+    return render(request, "leaderboard.html", context)
+
 
 def questionhub(request):
     return render(request, 'QuestionPage.html', )
@@ -223,13 +239,16 @@ def log_out(request):
         'score': score,
         'rank': 1,
 
-
     }
     logout(request)
     return render(request, 'result.html', context)
 
 
 def CodeSave(request):
+    if request.method != "POST":
+        return questionhub(request)
+    if logincheck(request) == 0:
+        return start(request)
     codeValue = request.POST.get("optradioc")
     print(codeValue)
     text = request.POST.get("editorta")
@@ -284,7 +303,7 @@ def CodeSave(request):
             score = score + 20
     print(tcOut)
 
-    #score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
+    # score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
     context = {
         'tc10': tcOut[4],
         'tc20': tcOut[3],
