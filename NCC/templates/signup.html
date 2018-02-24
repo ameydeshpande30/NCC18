@@ -37,13 +37,24 @@
 	<form action="/signup" method="post">
 	{% csrf_token %}
 	<div class="playerhead">Player 1</div>
-	
+
 	<div class="form-group mt-3 pt-1 pb-1 col" >
      
 	  <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:30px;"></i>
-	 
+	 <div class="input-group mb-1">
+   <select class="input-group-prepend ">
 
-      <input type="name" class="form-control text-center py-2" id="name" placeholder="Enter Name" name="p1name" autocomplete="off" required>
+
+    <option   selected value="1">M</option>
+    <option value="2">F</option>
+
+
+  </select>
+
+        <input type="name" class="form-control text-center py-2" id="name" placeholder="Enter Name" name="p1name" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1" required>
+</div>
+
+
     </div>
     <div class="form-group col   pb-2">
 	
@@ -124,7 +135,18 @@
      
 	  <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size:30px;"></i>
 
-      <input type="name" class="form-control text-center py-2" id="name" placeholder="Enter Name" name="p2name" autocomplete="off">
+
+         <div class="input-group mb-1">
+  <select class="input-group-prepend ">
+
+
+    <option selected value="1">M</option>
+    <option value="2">F</option>
+
+
+  </select>
+      <input type="name" class="form-control text-center py-2" id="name" placeholder="Enter Name" name="p2name" autocomplete="off" aria-label="Username" aria-describedby="basic-addon2">
+         </div>
     </div>
     <div class="form-group col   pb-1">
 	
