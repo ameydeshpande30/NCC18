@@ -404,6 +404,7 @@ $('.count').each(function () {
 });
 
 
+
 function mysub(str1,str2) {
 console.log("mysub")
    $.ajax({
@@ -412,7 +413,8 @@ console.log("mysub")
         method: "POST",
         dataType : "json",
         success : function (data) {
-            document.getElementById("editor").innerHTML =data["file"];
+        	var text=data["file"];
+            editor.session.setValue(text);
    			document.getElementById("editorText").innerHTML =data["file"];
             
         }
@@ -430,12 +432,14 @@ console.log("Loadbuffer")
         method: "POST",
         dataType : "json",
         success : function (data) {
-            console.log(data);
-			document.getElementById("editor").innerHTML =data["data"];
-   			document.getElementById("editorText").innerHTML =data["data"];            
+            console.log(data["text"]);
+			var text=data["text"];
+           editor.session.setValue(text);
+   			document.getElementById("editorText").innerHTML =text;            
         }
     });
 }
+
 
 	</script>
 </body>

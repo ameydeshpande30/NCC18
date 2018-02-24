@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 import datetime
 import os
-upath=""
+
+upath = ""
 totalquestion = 6
+
+
 def start(request):
     return render(request, 'signup.html')
 
@@ -110,7 +113,7 @@ def test(request):
     x = request.get_full_path().split('/')
     x = x[-1]
     x = str(x)
-    q = Attempt.objects.all().filter(user=request.user,qid=x)
+    q = Attempt.objects.all().filter(user=request.user, qid=x)
     context = {
         'x': x,
         'q': q
@@ -123,8 +126,10 @@ def test(request):
 def coding(request):
     return render(request, "codingPage.html")
 
+
 def questionhub(request):
     return render(request, 'QuestionPage.html', )
+
 
 def log_out(request):
     u = request.user
@@ -135,7 +140,8 @@ def log_out(request):
 
     }
     logout(request)
-    return render(request, 'result.html',context )
+    return render(request, 'result.html', context)
+
 
 def CodeSave(request):
     codeValue = request.POST.get("optradio")
@@ -156,21 +162,22 @@ def CodeSave(request):
     print(upath)
     file = upath + "/" + str(u) + "/" + str(x) + "/" + str(time) + "." + str(code)
     lfile = upath + "/" + str(u) + "/" + str(x) + "/" + str("lbf")
-    mysub  = Attempt.objects.create(user=request.user,qid=str(x),time=time,ext=str(code),status="Testing")
+    mysub = Attempt.objects.create(user=request.user, qid=str(x), time=time, ext=str(code), status="Testing")
     mysub.save()
     with open(file, 'w') as f:
         f.write(str(text) + '\n')
     with open(lfile, 'w') as f:
         f.write(str(text) + '\n')
-    ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q ).read()
+    ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
     ans = int(ans)
+    ans = ans[::-1]
     tc1 = 0
     tc2 = 0
     tc3 = 0
     tc4 = 0
     tc5 = 0
     tc6 = 0
-    #print(ans)
+    print(ans)
     for i in range(0, 5):
         data[i] = ans % 100
         ans = int(ans / 100)
@@ -208,15 +215,16 @@ def CodeSave(request):
     s.save()
     return render(request, "testcase.html", context)
 
-def leaderboard(request):
-    count=Player.objects.all().count()
-    p=Player.objects.all().order_by('-score','time','p1name')
 
-    context={
-    'pl':p,
-    'count':count
+def leaderboard(request):
+    count = Player.objects.all().count()
+    p = Player.objects.all().order_by('-score', 'time', 'p1name')
+
+    context = {
+        'pl': p,
+        'count': count
     }
-    return render(request, 'leaderboard.html',context)
+    return render(request, 'leaderboard.html', context)
 
 
 def MySubmissions(request):
