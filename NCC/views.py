@@ -18,6 +18,7 @@ def addsTime():
     print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     startTime = time + 1 * 60
+    endtime = startTime + 300
     print(startTime)
 
 
@@ -115,7 +116,7 @@ def signup(request):
                                             p2email=p2email,
                                             p1mno=p1mno, p2mno=p2mno, score=0, time=time,
                                             q1_score=0, q2_score=0, q3_score=0, q4_score=0,
-                                            q5_score=0, q6_score=0, subtime=0,level=level,rank=0)
+                                            q5_score=0, q6_score=0, subtime=0, level=level, rank=0)
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
 
@@ -163,8 +164,9 @@ def testp(request):
     }
     return render(request, "codingPage.html", context)
 
+
 def setRank(request):
-    p = Player.objects.all().filter(leve =request.user.player.level).order_by("-score", "subtime","id")
+    p = Player.objects.all().filter(leve=request.user.player.level).order_by("-score", "subtime", "id")
     count = 0
     for i in p:
         count = count + 1
@@ -221,7 +223,7 @@ def coding(request):
 
 
 def leaderboard(request):
-    p = Player.objects.all().order_by("-score","subtime")
+    p = Player.objects.all().order_by("-score", "subtime")
     context = {
         'p': p
     }
@@ -264,12 +266,12 @@ def CodeSave(request):
     x = request.get_full_path().split('/')
     x = x[-1]
     qscore = {
-        1: q1_score,
-        2: q2_score,
-        3: q3_score,
-        4: q4_score,
-        5: q5_score,
-        6: q6_score
+        '1': "q1_score",
+        '2': "q2_score",
+        '3': "q3_score",
+        '4': "q4_score",
+        '5': "q5_score",
+        '6': "q6_score"
     }
     data = [1, 2, 3, 4, 5]
     print(upath)
@@ -292,7 +294,6 @@ def CodeSave(request):
         50: 2,
         89: 3,
         70: 4
-
     }
     score = 0
     for i in range(0, 5):
@@ -314,9 +315,11 @@ def CodeSave(request):
     }
     u = request.user
     s = u.player
-    if s.qscore[x] < score:
+    sv = getattr(s, qscore[x])
+    if sv < score:
         s.score = s.score + score - qscore[x]
         s.qscore[x] = score
+        setattr(s, qscore[x], score)
         s.subtime = time
     s.save()
     return render(request, "testcase.html", context)
