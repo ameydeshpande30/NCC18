@@ -265,7 +265,6 @@ def CodeSave(request):
     ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + x).read()
     # ans = ans[::-1]
     ans = int(ans)
-
     print(ans)
     tcOut = [0, 1, 2, 3, 4]
     switch = {
@@ -276,19 +275,22 @@ def CodeSave(request):
         70: 4
 
     }
+    score = 0
     for i in range(0, 5):
         data[i] = ans % 100
         ans = int(ans / 100)
         tcOut[i] = switch[data[i]]
+        if tcOut[i] == 0:
+            score = score + 20
     print(tcOut)
 
-    score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
+    #score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
     context = {
-        'tc10': tcOut[0],
-        'tc20': tcOut[1],
+        'tc10': tcOut[4],
+        'tc20': tcOut[3],
         'tc30': tcOut[2],
-        'tc40': tcOut[3],
-        'tc50': tcOut[4],
+        'tc40': tcOut[1],
+        'tc50': tcOut[0],
         'score': score
     }
     u = request.user
@@ -318,7 +320,6 @@ def MySubmissions(request):
     ext = request.POST["ext"]
     x = request.get_full_path().split('/')
     x = x[-1]
-    q = x
     u = request.user.username
     file = upath + "/" + str(u) + "/" + str(x) + "/" + filename + "." + ext
     print(file)
