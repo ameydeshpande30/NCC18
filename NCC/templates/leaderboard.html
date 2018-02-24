@@ -1,87 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Leaderboard</title>
-     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css" type="text/css" media="all">
 
-<style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LEADERBOARD-NCC</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+	  <link href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet" >
 
 
-</style>
+
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="static/codingPage.css">
+    <style>
+
+    .play
+        {
+
+            background-color: black;
+
+            border-radius: 3px 4px 4px 3px;
+            opacity: .6;
+        }
+		.perc{background: red; text-align: center;color:white;
+		border-radius: 3px 4px 4px 3px;}
+
+    </style>
+
+
 
 </head>
+
 <body>
+    <nav class="navbar  navbar-light navtop py-0" >
 
+		<div class="navbar-brand  ncc " style="padding: 6px 6px 2px 6px;">  <img src="NCC.png" width="50" height="45" alt=""> </div>
+  		<div style="font-size: 30px;" >National  'C'omputing  Contest</div>
+  		<a class="btn border border-success  " href="#" role="button">Code Editor</a>
 
-<h1 align="center">Leaderboard</h1>
+		<a class="btn border border-success " href="#" role="button">Question Hub</a>
 
-    <div class="container">
-    <table class="table table-striped">
-        <tr>
-            <td>Group Username</td>
-            <td>Total score</td>
-            <td>Total time</td>
-        </tr>
+		<button class="btn mr-2 border border-success logout " type="button">Log Out <i class="fa fa-sign-out" style="font-size:20px;" aria-hidden="true" > </i></button>
 
-        {%for c in pl%}
-        <tr>
+</nav>
+    <div class="container-fluid pt-5 " >
+        <table class="table table-responsive table-striped container-fluid" style="height:70vh;">
+            <thead>
+                <tr>
+                    <th class="px-4">SR.No</th>
+                    <th class="px-5">USERNAME</th>
+                    <th class="px-4">QUESTION 1</th>
+                    <th class="px-4">QUESTION 2</th>
+                    <th class="px-4">QUESTION 3</th>
+                    <th class="px-4">QUESTION 4</th>
+                    <th class="px-4">QUESTION 5</th>
+                    <th 	class="px-4">QUESTION 6</th>
+                    <th class="px-4">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for l in p %}
+				<tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{l.p1name}}</td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width:{{l.q1_score}}% ; ">{{l.q1_score}}%</div></div></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: {{l.q2_score}}%;">{{l.q2_score}}%</div></div></td>
+                    <td><div class="play ">
+                        <div class="perc" style="width: {{l.q3_score}}%;">{{l.q3_score}}%</div></div></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: {{l.q4_score}}%; ">{{l.q4_score}}%</div></div></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: {{l.q5_score}}%;">{{l.q5_score}}%</div></div></td>
+                    <td><div class=" play ">
+                        <div class="perc" style="width: {{l.q6_score}}%; ">{{l.q6_score}}%</div></div></td>
+                    <td>{{l.score}}</td>
+                </tr>
 
-            <td>{{c.p1name}}</td>
-            <td>{{c.score}}</td>
-            <td style="display:none" id="{{forloop.counter}}">{{c.time}}</td>
-            <td id="time{{forloop.counter}}"></td>
-        </tr>
-        {%endfor%}
-
-    </table>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
-<a href="/questions/">Questions</a>
-{% if count %}
-<p style="display:none" id="count">{{count}}</p>
-{% endif %}
+  <nav class="navbar fixed-bottom  navbot ">
+  <img src="static/pisb.png" width="150" height="40" alt="">
+  <div class="col offset-md-3 " style="font-size:25px;color:black;">
+    PICT IEEE STUDENT BRANCH
+  </div>
+</nav>
+    <!-- /.container -->
 
+    <!-- jQuery Version 1.11.1 -->
+    <script src="js/jquery.min.js"></script>
 
-<form method="post" action="/logout/" >
-        {% csrf_token %}
-    <button type="submit">
-        Logout
-    </button>
-</form>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	$(document).keydown(function(event) {
+						if (event.ctrlKey==true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109'  || event.which == '187'  || event.which == '189'  ) ) {
+        event.preventDefault();
+											}
+    // 107 Num Key  +
+    // 109 Num Key  -
+    // 173 Min Key  hyphen/underscor Hey
+    // 61 Plus key  +/= key
+		});
 
-
-<script src="/static/jquery/dist/jquery.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-
-<script>
-
-var c=document.getElementById("count").innerHTML
-
-for(var i=1;i<c+1;i++)
-{
-
-value=document.getElementById(String(i)).innerHTML
-var hours = Math.floor((value/3600));
-var remainder=Math.floor(value%3600);
-var minutes = Math.floor((remainder/(60)));
-var seconds = Math.floor((remainder % (60)));
-
-document.getElementById("time"+String(i)).innerHTML=(hours)+":"+minutes+":"+seconds;
-
-}
-
-
-</script>
-
-
-
-
-
-
-
-
+		$(window).bind('mousewheel DOMMouseScroll', function (event) {
+       if (event.ctrlKey == true) {
+       event.preventDefault();
+       }
+		});</script>
 
 </body>
+
 </html>

@@ -106,7 +106,9 @@ def signup(request):
         time = 0
         user = User.objects.create_user(username=uname, email=p1email, password=password)
         user_object = Player.objects.create(pid=user, p1name=p1name, p2name=p2name, p1email=p1email, p2email=p2email,
-                                            p1mno=p1mno, p2mno=p2mno, score=0, time=time)
+                                            p1mno=p1mno, p2mno=p2mno, score=0, time=time,
+                                            q1_score = 0, q2_score = 0, q3_score = 0,q4_score = 0,
+                                            q5_score=0,q6_score = 0,)
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
 
@@ -150,7 +152,7 @@ def testp(request):
         'tc40': 0,
         'tc50': 1,
         'tc60': 1,
-        'score': 100
+        'score': request.user.player.score
     }
     return render(request, "codingPage.html", context)
 
@@ -203,6 +205,12 @@ def test(request):
 def coding(request):
     return render(request, "codingPage.html")
 
+def leaderboard(request):
+    p=Player.objects.all().order_by("-score")
+    context={
+        'p': p
+    }
+    return render(request, "leaderboard.html",context)
 
 def questionhub(request):
     return render(request, 'QuestionPage.html', )
@@ -236,7 +244,14 @@ def CodeSave(request):
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     x = request.get_full_path().split('/')
     x = x[-1]
-    q = x
+    qscore = {
+        1: q1_score,
+        2: q2_score,
+        3: q3_score,
+        4: q4_score,
+        5: q5_score,
+        6: q6_score
+    }
     data = [1, 2, 3, 4, 5]
     print(upath)
     file = upath + "/" + str(u) + "/" + str(x) + "/" + str(time) + "." + str(code)
@@ -247,16 +262,10 @@ def CodeSave(request):
         f.write(str(text) + '\n')
     with open(lfile, 'w') as f:
         f.write(str(text) + '\n')
-    ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
+    ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + x).read()
     # ans = ans[::-1]
     ans = int(ans)
 
-    tc1 = 0
-    tc2 = 0
-    tc3 = 0
-    tc4 = 0
-    tc5 = 0
-    tc6 = 0
     print(ans)
     tcOut = [0, 1, 2, 3, 4]
     switch = {
@@ -280,12 +289,14 @@ def CodeSave(request):
         'tc30': tcOut[2],
         'tc40': tcOut[3],
         'tc50': tcOut[4],
-        'tc60': tcOut[4],
         'score': score
     }
     u = request.user
     s = u.player
-    s.score = s.score + score
+    if s.qscore[x] < score:
+        s.score = s.score + score - qscore[x]
+        s.qscore[x] = score
+        s.subtime = time
     s.save()
     return render(request, "testcase.html", context)
 
