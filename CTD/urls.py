@@ -18,6 +18,7 @@ from django.conf.urls import url
 from NCC import views
 
 views.set()
+views.addsTime()
 urlpatterns = [
 
     url(r'^coding',views.coding),

@@ -11,12 +11,27 @@ totalquestion = 6
 endtime = 0
 startTime = 0
 
+def addsTime():
+    global startTime
+    now = datetime.datetime.now()
+    print("Call")
+    time = now.second + now.minute * 60 + now.hour * 60 * 60
+    startTime = time + 3*60
+    print(startTime)
 
 def start(request):
-    return render(request, 'signup.html')
+    if checkTimeslot(request) == 1:
+        context ={
+            'rt':rtime(request)
+        }
+        return render(request, 'instructions.html',context)
+    else:
+        print(checkTimeslot(request))
+        return render(request, 'signup.html')
 
 
 def setEndtime(request):
+    global endtime
     addtime = request.GET["time"]
     now = datetime.datetime.now()
     time = now.second + now.minute * 60 + now.hour * 60 * 60
@@ -26,19 +41,52 @@ def setEndtime(request):
 def checkTimeslot(request):
     now = datetime.datetime.now()
     time = now.second + now.minute * 60 + now.hour * 60 * 60
-    if time < (endtime + request.user.player.time) and time > startTime:
+    print(startTime)
+    if time < startTime:
         return 1
+    elif time > (endtime + request.user.player.time) :
+        return 2
     else:
         return 0
 
 
-def checkuser(request):
+
+def logincheck(request):
     if request.user.is_authenticated:
         print("1")
         return 1
     else:
         print("0")
         return 0
+
+def pagecheck(request):
+    t = checkTimeslot(request)
+    if  t == 0 and logincheck(request) == 1:
+        return 0
+    else:
+        if t == 1:
+            return 1
+        elif t == 2:
+            return 2
+        else :
+            return 3
+
+def rtime(request):
+    now = datetime.datetime.now()
+    time = now.second + now.minute * 60 + now.hour * 60 * 60
+    if checkTimeslot(request) == 0:
+        return (endtime + request.user.player.time) - time
+    else:
+        return startTime - time
+
+
+def sendpage(request,exitcode):
+    if exitcode == 1:
+        return render("waiting Page")
+    elif exitcode == 2:
+        return HttpResponse("Leaderboard")
+    else:
+        return start(request)
 
 
 def signup(request):
@@ -69,7 +117,7 @@ def signup(request):
         userFolderCreate(request)
         return render(request, 'QuestionPage.html', )
     else:
-        return render(request, 'signup.html', )
+        return start(request)
 
 
 def userFolderCreate(request):
@@ -107,8 +155,6 @@ def testp(request):
     return render(request, "codingPage.html", context)
 
 
-def mysubmission(request):
-    return HttpResponse("hello")
 
 
 def loadbuff(request):
@@ -146,7 +192,8 @@ def test(request):
         'x': x,
         'q': q,
         'score': score,
-        'rank': 1
+        'rank': 1,
+        'rt': rtime(request)
 
     }
 
@@ -166,7 +213,8 @@ def log_out(request):
     score = u.player.score
     context = {
         'score': score,
-        'rank': 1
+        'rank': 1,
+
 
     }
     logout(request)
