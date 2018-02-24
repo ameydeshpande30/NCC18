@@ -183,35 +183,29 @@ def CodeSave(request):
     tc5 = 0
     tc6 = 0
     print(ans)
+    tcOut = [0,1,2,3,4]
+    switch = {
+        10:0,
+        99:1,
+        50:2,
+        89:3,
+        70:4
+
+    }
     for i in range(0, 5):
         data[i] = ans % 100
         ans = int(ans / 100)
-    ans = data
-    if ans[0] == 10:
-        tc1 = 1
-
-    if ans[1] == 10:
-        tc2 = 1
-
-    if ans[2] == 10:
-        tc3 = 1
-
-    if ans[3] == 10:
-        tc4 = 1
-
-    if ans[4] == 10:
-        tc5 = 1
-
-        tc6 = 1
+        tcOut[i] = switch[data[i]]
+    print(tcOut)
 
     score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
     context = {
-        'tc10': tc1,
-        'tc20': tc2,
-        'tc30': tc3,
-        'tc40': tc4,
-        'tc50': tc5,
-        'tc60': tc6,
+        'tc10': tcOut[0],
+        'tc20': tcOut[1],
+        'tc30': tcOut[2],
+        'tc40': tcOut[3],
+        'tc50': tcOut[4],
+        'tc60': tcOut[4],
         'score': score
     }
     u = request.user

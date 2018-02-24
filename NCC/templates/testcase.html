@@ -14,14 +14,14 @@
     <title>TESTCASES-NCC</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="codingPage.css">
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/codingPage.css">
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" >
       <!-- jQuery Version 1.11.1 -->
-    <script src="jquery.min.js"></script>
+    <script src="/static/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
 
     <!-- Custom CSS -->
     <style>
@@ -84,13 +84,13 @@
 
   <nav class="navbar  navbar-light navtop py-0" >
   
-        <div class="navbar-brand  ncc " style="padding: 6px 6px 2px 6px;">  <img src="NCC.png" width="50" height="45" alt=""> </div>
+        <div class="navbar-brand  ncc " style="padding: 6px 6px 2px 6px;">  <img src="/static/NCC.png" width="50" height="45" alt=""> </div>
         <div class="col offset-md-1" style="font-size: 30px;" >National  'C'omputing  Contest</div>
         <!--<a class="btn border border-success  " href="#" role="button">Leader Board</a>
  
         <a class="btn border border-success " href="#" role="button">Question Hub</a>-->
  
-        <button class="btn mr-2 border border-success logout " type="button">Log Out <i class="fa fa-sign-out" style="font-size:20px;" aria-hidden="true" > </i></button>
+        <a href="/logout"><button class="btn mr-2 border border-success logout " type="button">Log Out <i class="fa fa-sign-out" style="font-size:20px;" aria-hidden="true" > </i></button></a>
   
 </nav>
 
@@ -143,7 +143,7 @@
                         </div>
                 
                         <div class=" no-gutters col-md-12 row text-center  mt-5  pl-5 pr-0 name"><p class="col-md-2 pt-3" style="font-size:25px;">SCORE</p>
-            <div class=" offset-md-3  col-md-7 border border-success  text-center py-1  score" style="font-size:40px;color:rgb(0,255,0);text-shadow: 4px 4px 10px black;font-weight:500;">100</div>
+            <div class=" offset-md-3  col-md-7 border border-success  text-center py-1  score" style="font-size:40px;color:rgb(0,255,0);text-shadow: 4px 4px 10px black;font-weight:500;">{{score}}</div>
             </div>
                
             </div>
@@ -151,7 +151,7 @@
        
     </div>
    <nav class="navbar fixed-bottom  navbot ">
-  <img src="pisb.png" width="150" height="40" alt=""> 
+  <img src="/static/pisb.png" width="150" height="40" alt=""> 
   <div class="col offset-md-3 " style="font-size:25px;color:black;">
     PICT IEEE STUDENT BRANCH
   </div> 
@@ -186,7 +186,7 @@
         function count()
         {
         
-        switch ( {{tc1}} ) {
+        switch ( {{tc10}} ) {
     case 0:
         document.getElementById('tc1').className='fa fa-check-square-o  name1';
         ch=ch+1;
@@ -200,7 +200,7 @@
         break;
     }
     
-    switch ({{tc2}}) {
+    switch ({{tc20}}) {
     case 0:
         document.getElementById('tc2').className='fa fa-check-square-o  name1';
         ch=ch+1;
@@ -214,7 +214,7 @@
         break;
         }
     
-    switch ({{tc3}}) {
+    switch ({{tc30}}) {
     case 0:
         document.getElementById('tc3').className='fa fa-check-square-o  name1';
         ch=ch+1;
@@ -228,7 +228,7 @@
         break;
         }
     
-    switch ({{tc4}}) {
+    switch ({{tc40}}) {
     case 0:
         document.getElementById('tc4').className='fa fa-check-square-o  name1';
         ch=ch+1;
@@ -242,7 +242,7 @@
         break;
         }
     
-    switch ({{tc5}}) {
+    switch ({{tc50}}) {
     case 0:
         document.getElementById('tc5').className='fa fa-check-square-o  name1';
         ch=ch+1;
@@ -256,7 +256,7 @@
         break;
         }
     
-    // switch (/* {{Backend Variable}} */) {
+    // switch (/* {{tc60}} */) {
     // case 0:
     //     document.getElementById('tc6').className='fa fa-check-square-o  name1';
     //     ch=ch+1;

@@ -35,7 +35,7 @@ def run_testcase(i, exec_file, uid, qid):
         res = compare(user_out, actual_out)
 
     # print res
-    #os.remove(user_out)  # removing user output
+    os.remove(user_out)  # removing user output
     return res
 
 
