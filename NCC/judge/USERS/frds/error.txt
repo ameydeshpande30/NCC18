@@ -1,0 +1,13 @@
+/mnt/c/Users/YAKSHIT_JAIN/PycharmProjects/NCC/NCC/judge/USERS/frds/1/82412.c:2:4: error: unknown type name ‘function’
+    function foo(items) 
+    ^
+/mnt/c/Users/YAKSHIT_JAIN/PycharmProjects/NCC/NCC/judge/USERS/frds/1/82412.c: In function ‘foo’:
+/mnt/c/Users/YAKSHIT_JAIN/PycharmProjects/NCC/NCC/judge/USERS/frds/1/82412.c:2:13: warning: type of ‘items’ defaults to ‘int’ [-Wimplicit-int]
+    function foo(items) 
+             ^
+/mnt/c/Users/YAKSHIT_JAIN/PycharmProjects/NCC/NCC/judge/USERS/frds/1/82412.c:4:2: error: unknown type name ‘var’
+  var x = "All this is syntax highlighted";
+  ^
+/mnt/c/Users/YAKSHIT_JAIN/PycharmProjects/NCC/NCC/judge/USERS/frds/1/82412.c:4:10: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+  var x = "All this is syntax highlighted";
+          ^
