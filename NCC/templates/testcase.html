@@ -123,8 +123,8 @@
                         </div>
                 
                         <div class=" no-gutters col-md-12 row text-center  mt-5    name">
-<p class="col-md-2 pt-3" id="stat" style="font-size:25px;">STATUS :</p>
-            <div class="   col-md-5 border border-success  text-center pt-2  score" style="font-size:30px;color:rgb(255,255,230);text-shadow: 4px 4px 10px black;font-weight:500;">ABNORMAL TERMINATION</div>
+<p class="col-md-2 pt-3"  style="font-size:25px;">STATUS :</p>
+            <div class="   col-md-5 border border-success  text-center pt-2  score" id="stat" style="font-size:30px;color:rgb(255,255,230);text-shadow: 4px 4px 10px black;font-weight:500;">Waiting ...</div>
 			<p class="col-md-2 pt-3" style="font-size:25px;">SCORE :</p>
             <div class="   col border border-success  text-center py-1  score" style="font-size:40px;color:rgb(0,255,0);text-shadow: 4px 4px 10px black;font-weight:500;">{{score}}</div>
 			
@@ -136,6 +136,7 @@
   <nav class="navbar fixed-bottom  navbot ">
 
   <div class="col text-center" style="font-size:25px;color:black;">
+      {{error}}
   COPYRIGHT<i class="fa fa-copyright" aria-hidden="true" style="font-size:25px;"></i>  PICT IEEE STUDENT BRANCH
   </div>
 </nav>
@@ -145,13 +146,11 @@
         function process(){
             var x=document.getElementById("Bar");
             var y=1;
-            var id=setInterval(count,1)
+            var id=setInterval(count,10)
             function count(){
                 if(y>=100){
                     clearInterval(id);
-					 var element = document.getElementById("Bar");
-					 
-						element.classList.remove("progress-bar-animated");
+					count1();
                     
                 }
                 else{
@@ -164,7 +163,7 @@
         
         
        
-        function count()
+        function count1()
         {
         
         switch ( {{tc10}} ) {
@@ -261,7 +260,7 @@
        
         break;
     }
-	switch ( {{tc10}} ) {
+	switch ( {{tc50}} ) {
     case 0:
         document.getElementById('tc5').className='fa fa-check-square-o  ';
         
@@ -284,7 +283,7 @@
        
         break;
     }
-	}
+
     
    
     
@@ -294,7 +293,7 @@
         
         function res()
         {
-             switch ({{STAT}}) {
+             switch ({{st}}) {
     case 0:
         document.getElementById('stat').innerHTML='SUCCESS';
         

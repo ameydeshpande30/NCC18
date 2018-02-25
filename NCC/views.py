@@ -24,7 +24,8 @@ def addsTime():
     print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     startTime = time + 1 * 60
-    endtime = startTime + 300
+    global endtime
+    endtime = startTime + 5*60
     print(startTime)
 
 
@@ -130,7 +131,13 @@ def signup(request):
         login(request, u2)
 
         userFolderCreate(request)
-        return render(request, 'QuestionPage.html', )
+        q = Questions.objects.all().filter(qlevel=request.user.player.level)
+        print(q.filter(qid=1))
+        context = {
+            'q1': q.get(qid=1),
+            'tu': TotalUser
+        }
+        return render(request, 'QuestionPage.html',context )
     else:
         return start(request)
 
@@ -327,6 +334,20 @@ def CodeSave(request):
         print("in")
         cerror = str.replace(cerror, file, change)
     # score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
+    st = 1
+    if (tcOut[0] == 2 or tcOut[1] == 2 or tcOut[2] == 2 or tcOut[3] == 2 or tcOut[4] == 2 ):
+        st = 2
+
+    if (tcOut[0] == 4 or tcOut[1] == 4 or tcOut[2] == 4 or tcOut[3] == 4 or tcOut[4] == 4 ):
+        st = 4
+
+    if (tcOut[0] == 3 and tcOut[1] == 3 and tcOut[2] == 3 and tcOut[3] == 3 and tcOut[4] == 3 ):
+        st = 3
+
+    if (tcOut[0] == 0 and tcOut[1] == 0 and tcOut[2] == 0 and tcOut[3] == 0 and tcOut[4] == 0 ):
+        st = 0
+
+
 
     context = {
         'tc10': tcOut[4],
@@ -335,7 +356,8 @@ def CodeSave(request):
         'tc40': tcOut[1],
         'tc50': tcOut[0],
         'score': score,
-        'error': cerror
+        'error': cerror,
+        'st':st
     }
     u = request.user
     s = u.player
