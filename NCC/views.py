@@ -178,7 +178,7 @@ def testp(request):
         'tc60': 1,
         'score': request.user.player.score
     }
-    return render(request, "codingPage.html", context)
+    return render(request, "result.html", context)
 
 
 def setRank(request):
@@ -425,7 +425,6 @@ def leaderboard(request):
 
 
 def centralServer(request):
-    setRank(request)
     return HttpResponse(
         serializers.serialize("json", Player.objects.all()),
         content_type="application/json"
