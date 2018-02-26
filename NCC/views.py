@@ -6,6 +6,7 @@ from .models import *
 import datetime
 import os
 import string
+from django.core import serializers
 
 upath = ""
 totalquestion = 6
@@ -13,20 +14,22 @@ endtime = 0
 startTime = 0
 TotalUser = Player.objects.all().count()
 
+
 def addquestion():
-    q = Questions.objects.create(title="Test Question",completeques="this is the /n question",
-    qid=1,qlevel=0,ac=0)
+    q = Questions.objects.create(title="Test Question", completeques="this is the /n question",
+                                 qid=1, qlevel=0, ac=0)
     q.save()
+
 
 def addsTime():
     global startTime
     now = datetime.datetime.now()
-    #print("Call")
+    # print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     startTime = time + 1 * 30
     global endtime
-    endtime = startTime + 20*60
-    #print(startTime)
+    endtime = startTime + 100 * 60
+    # print(startTime)
 
 
 def start(request):
@@ -36,7 +39,7 @@ def start(request):
         }
         return render(request, 'instructions.html', context)
     else:
-       # print(checkTimeslot(request))
+        # print(checkTimeslot(request))
         return render(request, 'signup.html')
 
 
@@ -54,7 +57,7 @@ def checkTimeslot(request):
     addt = 0
     if logincheck(request) == 1:
         addt = request.user.player.time
-    #print(startTime)
+    # print(startTime)
     if time < startTime:
         return 1
     elif time > (endtime + addt):
@@ -65,12 +68,11 @@ def checkTimeslot(request):
 
 def logincheck(request):
     if request.user.is_authenticated:
-        #print("1")
+        # print("1")
         return 1
     else:
-        #print("0")
+        # print("0")
         return 0
-
 
 
 def rtime(request):
@@ -89,8 +91,10 @@ def sendpage(request, exitcode):
         return HttpResponse("Leaderboard")
     else:
         return start(request)
-#print(TotalUser)
-#print(TotalUser)
+
+
+# print(TotalUser)
+# print(TotalUser)
 def signup(request):
     if checkTimeslot(request) == 1:
         context = {
@@ -124,19 +128,19 @@ def signup(request):
                                             q5_score=0, q6_score=0, subtime=0, level=level, rank=0)
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
-        #print(TotalUser)
+        # print(TotalUser)
 
         login(request, u2)
 
         userFolderCreate(request)
         q = Questions.objects.all().filter(qlevel=request.user.player.level)
-       # print(q.filter(qid=1))
+        # print(q.filter(qid=1))
         context = {
             'q1': q.get(qid=1),
             'tu': TotalUser,
             'rt': rtime(request)
         }
-        return render(request, 'QuestionPage.html',context )
+        return render(request, 'QuestionPage.html', context)
     else:
         return start(request)
 
@@ -146,7 +150,7 @@ def userFolderCreate(request):
     global totalquestion
     path = upath
     path = path + "/" + str(request.user.username)
-    #print(path)
+    # print(path)
     if not os.path.exists(path):
         os.mkdir(path)
         for i in range(1, totalquestion + 1):
@@ -156,7 +160,7 @@ def userFolderCreate(request):
 def set():
     path = os.path.dirname(os.path.abspath(__file__))
     path = path + "/judge/USERS"
-    #print("***User Folder Created***")
+    # print("***User Folder Created***")
     if not os.path.exists(path):
         os.mkdir(path)
     global upath
@@ -183,7 +187,7 @@ def setRank(request):
     for i in p:
         count = count + 1
         if i.pid == request.user:
-            p = Player.objects.get(pid = i.pid)
+            p = Player.objects.get(pid=i.pid)
             p.rank = count
             p.save()
             return 1
@@ -265,14 +269,14 @@ def questionhub(request):
         return render(request, 'instructions.html', context)
     if checkTimeslot(request) == 2:
         return leaderboard(request)
-    q = Questions.objects.all().filter(qlevel = request.user.player.level)
-    #print(q.filter(qid=1))
-    context={
-        'q1':q.get(qid=1),
-        'tu':TotalUser,
+    q = Questions.objects.all().filter(qlevel=request.user.player.level)
+    # print(q.filter(qid=1))
+    context = {
+        'q1': q.get(qid=1),
+        'tu': TotalUser,
         'rt': rtime(request)
     }
-    return render(request, 'QuestionPage.html', context )
+    return render(request, 'QuestionPage.html', context)
 
 
 def log_out(request):
@@ -308,15 +312,15 @@ def CodeSave(request):
     if request.method != "POST":
         return questionhub(request)
     codeValue = request.POST.get("optradioc")
-    #print(codeValue)
+    # print(codeValue)
     text = request.POST.get("editorta")
     code = "c"
     cv = int(codeValue)
     if cv == 2:
         code = "cpp"
-    #print(text)
+    # print(text)
     u = request.user.username
-    #print(u)
+    # print(u)
     now = datetime.datetime.now()
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     x = request.get_full_path().split('/')
@@ -331,7 +335,7 @@ def CodeSave(request):
         '6': "q6_score"
     }
     data = [1, 2, 3, 4, 5]
-    #print(upath)
+    # print(upath)
     file = upath + "/" + str(u) + "/" + str(x) + "/" + str(time) + "." + str(code)
     lfile = upath + "/" + str(u) + "/" + str(x) + "/" + str("lbf")
     mysub = Attempt.objects.create(user=request.user, qid=str(x), time=time, ext=str(code), status="Testing")
@@ -343,7 +347,7 @@ def CodeSave(request):
     ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
     # ans = ans[::-1]
     ans = int(ans)
-    #print(ans)
+    # print(ans)
     tcOut = [0, 1, 2, 3, 4]
     switch = {
         10: 0,
@@ -359,30 +363,28 @@ def CodeSave(request):
         tcOut[i] = switch[data[i]]
         if tcOut[i] == 0:
             score = score + 20
-    #print(tcOut)
+    # print(tcOut)
     cerror = " "
     if tcOut[4] == 3:
         error = upath + "/" + str(u) + "/" + str("error.txt")
         with open(error, 'r') as e:
             cerror = e.read()
-        change = str(x) + "." +str(code)
-        #print("in")
+        change = str(x) + "." + str(code)
+        # print("in")
         cerror = str.replace(cerror, file, change)
     # score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
     st = 1
-    if (tcOut[0] == 2 or tcOut[1] == 2 or tcOut[2] == 2 or tcOut[3] == 2 or tcOut[4] == 2 ):
+    if (tcOut[0] == 2 or tcOut[1] == 2 or tcOut[2] == 2 or tcOut[3] == 2 or tcOut[4] == 2):
         st = 2
 
-    if (tcOut[0] == 4 or tcOut[1] == 4 or tcOut[2] == 4 or tcOut[3] == 4 or tcOut[4] == 4 ):
+    if (tcOut[0] == 4 or tcOut[1] == 4 or tcOut[2] == 4 or tcOut[3] == 4 or tcOut[4] == 4):
         st = 4
 
-    if (tcOut[0] == 3 and tcOut[1] == 3 and tcOut[2] == 3 and tcOut[3] == 3 and tcOut[4] == 3 ):
+    if (tcOut[0] == 3 and tcOut[1] == 3 and tcOut[2] == 3 and tcOut[3] == 3 and tcOut[4] == 3):
         st = 3
 
-    if (tcOut[0] == 0 and tcOut[1] == 0 and tcOut[2] == 0 and tcOut[3] == 0 and tcOut[4] == 0 ):
+    if (tcOut[0] == 0 and tcOut[1] == 0 and tcOut[2] == 0 and tcOut[3] == 0 and tcOut[4] == 0):
         st = 0
-
-
 
     context = {
         'tc10': tcOut[4],
@@ -392,18 +394,18 @@ def CodeSave(request):
         'tc50': tcOut[0],
         'score': score,
         'error': cerror,
-        'st':st
+        'st': st
     }
     u = request.user
     s = u.player
     sv = int(getattr(s, qscore[x]))
     if sv < score:
         if score == 100:
-            q = Questions.objects.get(qid = x)
+            q = Questions.objects.get(qid=x)
             q.ac = q.ac + 1
             q.qsub = q.qsub + 1
         s.score = s.score + score - sv
-        #s.qscore[x] = score
+        # s.qscore[x] = score
         setattr(s, qscore[x], score)
         s.subtime = time
     s.save()
@@ -413,16 +415,20 @@ def CodeSave(request):
 def leaderboard(request):
     count = Player.objects.all().count()
     p = Player.objects.all().order_by('-score', 'time', 'p1name')
-    #print(p)
+    # print(p)
     context = {
         'p': p,
         'count': count
     }
     return render(request, 'leaderboard.html', context)
 
+
 def centralServer(request):
-    p = Player.objects.all()
-    return JsonResponse(p,safe=False)
+    setRank(request)
+    return HttpResponse(
+        serializers.serialize("json", Player.objects.all()),
+        content_type="application/json"
+    )
 
 
 def MySubmissions(request):
@@ -433,10 +439,8 @@ def MySubmissions(request):
     x = x[-1]
     u = request.user.username
     file = upath + "/" + str(u) + "/" + str(x) + "/" + filename + "." + ext
-    #print(file)
+    # print(file)
     f = open(file, "r")
     data = f.read()
     response_data["file"] = data
     return JsonResponse(response_data)
-
-
