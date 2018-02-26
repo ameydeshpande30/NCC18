@@ -20,6 +20,7 @@ from NCC import views
 views.set()
 views.addsTime()
 urlpatterns = [
+    url(r'^testp',views.testp),
     url(r'^centralserver',views.centralServer),
     url(r'^coding',views.coding),
     url(r'^checkuse',views.checkuser),
