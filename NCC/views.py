@@ -420,6 +420,10 @@ def leaderboard(request):
     }
     return render(request, 'leaderboard.html', context)
 
+def centralServer(request):
+    p = Player.objects.all()
+    return JsonResponse(p,safe=False)
+
 
 def MySubmissions(request):
     response_data = {}
@@ -434,3 +438,5 @@ def MySubmissions(request):
     data = f.read()
     response_data["file"] = data
     return JsonResponse(response_data)
+
+
