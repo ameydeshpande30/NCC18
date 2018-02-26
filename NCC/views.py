@@ -176,7 +176,8 @@ def testp(request):
         'tc40': 0,
         'tc50': 1,
         'tc60': 1,
-        'score': request.user.player.score
+        'score': 100,
+        'rank': 1
     }
     return render(request, "result.html", context)
 
