@@ -114,7 +114,8 @@ def signup(request):
         p2email = request.POST.get("p2email")
         p1mno = request.POST.get("p1mno")
         p2mno = request.POST.get("p2mno")
-        level = request.POST.get("optradio")
+        #level = request.POST.get("optradio")
+        level = 0
         gender1 = request.POST["gender1"]
         gender2 = request.POST["gender2"]
         # now = datetime.datetime.now()
