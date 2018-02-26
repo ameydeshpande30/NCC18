@@ -203,33 +203,17 @@
 {% for l in q %}
 
 
-<b>Submission Time:   {{l.time}}   </b>
 
 	<tr>
       <th scope="row">{{forloop.counter}}</th>
       <td>{{l.user.username}}</td>
       <td>{{l.time}}</td>
       <td>{{l.status}}</td>
-	  <td><button type="button" class ="btn btn-success"onclick="mysub('{{l.time}}','{{l.ext}}')"> Click  </button></td>
+	  <td><button type="button" class ="btn btn-success"onclick="mysub('{{l.time}}','{{l.ext}}')"> View  </button></td>
     </tr>
-
-    
-
-
-    
-
-
-
 
 
 {% endfor %}
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-	  <td>@mdo</td>
-    </tr>
 
 
   </tbody>
@@ -274,7 +258,7 @@
 <nav class="navbar fixed-bottom  navbot ">
 
   <div class="col text-center" style="font-size:25px;color:black;">
-  COPYRIGHT<i class="fa fa-copyright" aria-hidden="true" style="font-size:25px;"></i>  PICT IEEE STUDENT BRANCH
+  COPYRIGHT<i class="fa fa-copyright" aria-hidden="true" style="font-size:25px;"></i>  IEEE COMPUTER SOCIETY
   </div>
 </nav>
 <script type="text/javascript">

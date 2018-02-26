@@ -23,9 +23,9 @@ def addsTime():
     now = datetime.datetime.now()
     #print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
-    startTime = time + 1 * 60
+    startTime = time + 1 * 30
     global endtime
-    endtime = startTime + 5*60
+    endtime = startTime + 20*60
     #print(startTime)
 
 
@@ -396,14 +396,14 @@ def CodeSave(request):
     }
     u = request.user
     s = u.player
-    sv = getattr(s, qscore[x])
+    sv = int(getattr(s, qscore[x]))
     if sv < score:
         if score == 100:
-            q = Questions.object.get(qid = x)
+            q = Questions.objects.get(qid = x)
             q.ac = q.ac + 1
             q.qsub = q.qsub + 1
-        s.score = s.score + score - qscore[x]
-        s.qscore[x] = score
+        s.score = s.score + score - sv
+        #s.qscore[x] = score
         setattr(s, qscore[x], score)
         s.subtime = time
     s.save()
