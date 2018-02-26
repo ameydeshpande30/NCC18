@@ -21,12 +21,12 @@ def addquestion():
 def addsTime():
     global startTime
     now = datetime.datetime.now()
-    print("Call")
+    #print("Call")
     time = now.second + now.minute * 60 + now.hour * 60 * 60
     startTime = time + 1 * 60
     global endtime
     endtime = startTime + 5*60
-    print(startTime)
+    #print(startTime)
 
 
 def start(request):
@@ -36,7 +36,7 @@ def start(request):
         }
         return render(request, 'instructions.html', context)
     else:
-        print(checkTimeslot(request))
+       # print(checkTimeslot(request))
         return render(request, 'signup.html')
 
 
@@ -54,7 +54,7 @@ def checkTimeslot(request):
     addt = 0
     if logincheck(request) == 1:
         addt = request.user.player.time
-    print(startTime)
+    #print(startTime)
     if time < startTime:
         return 1
     elif time > (endtime + addt):
@@ -65,24 +65,12 @@ def checkTimeslot(request):
 
 def logincheck(request):
     if request.user.is_authenticated:
-        print("1")
+        #print("1")
         return 1
     else:
-        print("0")
+        #print("0")
         return 0
 
-
-def pagecheck(request):
-    t = checkTimeslot(request)
-    if t == 0 and logincheck(request) == 1:
-        return 0
-    else:
-        if t == 1:
-            return 1
-        elif t == 2:
-            return 2
-        else:
-            return 3
 
 
 def rtime(request):
@@ -96,15 +84,23 @@ def rtime(request):
 
 def sendpage(request, exitcode):
     if exitcode == 1:
-        return render("waiting Page")
+        return start(request)
     elif exitcode == 2:
         return HttpResponse("Leaderboard")
     else:
         return start(request)
-print(TotalUser)
-print(TotalUser)
+#print(TotalUser)
+#print(TotalUser)
 def signup(request):
-    print(request.method)
+    if checkTimeslot(request) == 1:
+        context = {
+            'rt': rtime(request)
+        }
+        return render(request, 'instructions.html', context)
+
+    if checkTimeslot(request) == 2:
+        return leaderboard(request)
+
     if request.method == 'POST':
         uname = request.POST.get('uname')
         password = request.POST.get("password")
@@ -115,6 +111,8 @@ def signup(request):
         p1mno = request.POST.get("p1mno")
         p2mno = request.POST.get("p2mno")
         level = request.POST.get("optradio")
+        gender1 = request.POST["gender1"]
+        gender2 = request.POST["gender2"]
         # now = datetime.datetime.now()
         # time = now.second + now.minute * 60 + now.hour * 60 * 60
         time = 0
@@ -126,16 +124,17 @@ def signup(request):
                                             q5_score=0, q6_score=0, subtime=0, level=level, rank=0)
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
-        print(TotalUser)
+        #print(TotalUser)
 
         login(request, u2)
 
         userFolderCreate(request)
         q = Questions.objects.all().filter(qlevel=request.user.player.level)
-        print(q.filter(qid=1))
+       # print(q.filter(qid=1))
         context = {
             'q1': q.get(qid=1),
-            'tu': TotalUser
+            'tu': TotalUser,
+            'rt': rtime(request)
         }
         return render(request, 'QuestionPage.html',context )
     else:
@@ -147,7 +146,7 @@ def userFolderCreate(request):
     global totalquestion
     path = upath
     path = path + "/" + str(request.user.username)
-    print(path)
+    #print(path)
     if not os.path.exists(path):
         os.mkdir(path)
         for i in range(1, totalquestion + 1):
@@ -157,7 +156,7 @@ def userFolderCreate(request):
 def set():
     path = os.path.dirname(os.path.abspath(__file__))
     path = path + "/judge/USERS"
-    print("***User Folder Created***")
+    #print("***User Folder Created***")
     if not os.path.exists(path):
         os.mkdir(path)
     global upath
@@ -216,6 +215,16 @@ def checkuser(request):
 
 
 def test(request):
+    if logincheck(request) == 0:
+        return start(request)
+    if checkTimeslot(request) == 1:
+        context = {
+            'rt': rtime(request)
+        }
+        return render(request, 'instructions.html', context)
+    if checkTimeslot(request) == 2:
+        return leaderboard(request)
+
     x = request.get_full_path().split('/')
     x = x[-1]
     x = str(x)
@@ -247,16 +256,35 @@ def leaderboard(request):
 
 
 def questionhub(request):
+    if logincheck(request) == 0:
+        return start(request)
+    if checkTimeslot(request) == 1:
+        context = {
+            'rt': rtime(request)
+        }
+        return render(request, 'instructions.html', context)
+    if checkTimeslot(request) == 2:
+        return leaderboard(request)
     q = Questions.objects.all().filter(qlevel = request.user.player.level)
-    print(q.filter(qid=1))
+    #print(q.filter(qid=1))
     context={
         'q1':q.get(qid=1),
-        'tu':TotalUser
+        'tu':TotalUser,
+        'rt': rtime(request)
     }
     return render(request, 'QuestionPage.html', context )
 
 
 def log_out(request):
+    if logincheck(request) == 0:
+        return start(request)
+    if checkTimeslot(request) == 1:
+        context = {
+            'rt': rtime(request)
+        }
+        return render(request, 'instructions.html', context)
+    if checkTimeslot(request) == 2:
+        return leaderboard(request)
     u = request.user
     score = u.player.score
     context = {
@@ -268,10 +296,17 @@ def log_out(request):
 
 
 def CodeSave(request):
-    if request.method != "POST":
-        return questionhub(request)
     if logincheck(request) == 0:
         return start(request)
+    if checkTimeslot(request) == 1:
+        context = {
+            'rt': rtime(request)
+        }
+        return render(request, 'instructions.html', context)
+    if checkTimeslot(request) == 2:
+        return leaderboard(request)
+    if request.method != "POST":
+        return questionhub(request)
     codeValue = request.POST.get("optradioc")
     #print(codeValue)
     text = request.POST.get("editorta")
@@ -324,14 +359,14 @@ def CodeSave(request):
         tcOut[i] = switch[data[i]]
         if tcOut[i] == 0:
             score = score + 20
-    print(tcOut)
+    #print(tcOut)
     cerror = " "
     if tcOut[4] == 3:
         error = upath + "/" + str(u) + "/" + str("error.txt")
         with open(error, 'r') as e:
             cerror = e.read()
         change = str(x) + "." +str(code)
-        print("in")
+        #print("in")
         cerror = str.replace(cerror, file, change)
     # score = (tc1 + tc2 + tc3 + tc4 + tc5) * 20
     st = 1
@@ -378,7 +413,7 @@ def CodeSave(request):
 def leaderboard(request):
     count = Player.objects.all().count()
     p = Player.objects.all().order_by('-score', 'time', 'p1name')
-    print(p)
+    #print(p)
     context = {
         'p': p,
         'count': count

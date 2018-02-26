@@ -50,7 +50,7 @@
 		<div class="  ncc " style="padding: 6px 6px 2px 6px;">  <img src="/static/NCC.png" width="50" height="45" alt=""> </div>
   		<div style="font-size: 30px;" class="col-md-5">National  'C'omputing  Contest</div>
 		<button class="btn border border-success  " style="opacity:0;"  href="/questionhub" role="button" disabled>Question Hub</button>
-  		<a class="btn border border-success  " href="#" role="button">Leader Board</a>
+  		<a class="btn border border-success  " href="/leaderboard" role="button">Leader Board</a>
 
 
  
@@ -188,7 +188,7 @@
 		$(document).ready(function() {
 
 			clock = $('.clock').timeTo({
-    seconds: 90,
+    seconds: {{rt}},
       theme: "black",
       displayHours: true,
       fontSize: 48
@@ -198,7 +198,7 @@
 
 
 
-    var seconds = 90;
+    var seconds = {{rt}};
 
 function secondPassed() {
 console.log();
@@ -230,7 +230,7 @@ console.log();
 }
 
 
-
+var countdownTimer = setInterval('secondPassed()', 1000);
 
 
 </script>
