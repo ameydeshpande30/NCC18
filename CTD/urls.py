@@ -21,7 +21,11 @@ views.set()
 views.addsTime()
 urlpatterns = [
     url(r'^testp',views.testp),
-    url(r'^centralserver',views.centralServer),
+    url('^sta',views.addT),
+    url(r'^addstart',views.setStarttime),
+    url(r'^addend',views.setEndtime),
+    url(r'^addusertime',views.addusertime),
+    url(r'^centralserver',views.centralServeru),
     url(r'^coding',views.coding),
     url(r'^checkuse',views.checkuser),
     url(r'^result',views.log_out),

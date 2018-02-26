@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css" type="text/css" media="all">
+
+
+</head>
+<body>
+    <div class="container">
+    <div class="col-lg-6">
+    <form class="form-horizontal" method="post" action="/addstart">
+            {% csrf_token %}
+        <div class="form-group">
+            <label for="user">StartTime</label>
+            <input  class="form-control" type="text" id="user1" name="time" >
+        </div>
+
+
+        <div class="form-group">
+            <label for="user">Password</label>
+            <input  class="form-control" type="password" id="pass1" name="pass" >
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Add start</button>
+        </div>
+
+    </form>
+         <form class="form-horizontal" method="post" action="/addend">
+            {% csrf_token %}
+        <div class="form-group">
+            <label for="user">EndTime</label>
+            <input  class="form-control" type="text" id="user2" name="time" >
+        </div>
+
+
+        <div class="form-group">
+            <label for="user">Password</label>
+            <input  class="form-control" type="password" id="pass2" name="pass" >
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Add End</button>
+        </div>
+
+    </form>
+         <form class="form-horizontal" method="post" action="/addusertime">
+            {% csrf_token %}
+             <div class="form-group">
+            <label for="user4">Username</label>
+            <input  class="form-control" type="text" id="user4" name="time" >
+        </div>
+        <div class="form-group">
+            <label for="user5">Usertime</label>
+            <input  class="form-control" type="text" id="user5" name="time" >
+        </div>
+
+
+        <div class="form-group">
+            <label for="pass">Password</label>
+            <input  class="form-control" type="password" id="pass" name="pass" >
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+
+    </form>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<script src="/static/jquery/dist/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>

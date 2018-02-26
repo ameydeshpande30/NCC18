@@ -24,6 +24,9 @@ class Player(models.Model):
     q6_score = models.IntegerField(default=0)
     subtime = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
+    gender1 = models.IntegerField(default=0)
+    gender2 = models.IntegerField(default=0)
+
 
     def __str__(self):
         a = self.id
@@ -33,7 +36,7 @@ class Player(models.Model):
 
 class Questions(models.Model):
     title = models.CharField(max_length=10)
-    completeques = models.CharField(max_length=120)
+    completeques = models.CharField(max_length=5000)
     qid = models.IntegerField(default=0)
     ac = models.IntegerField(default=0)
     qlevel = models.IntegerField(default=0)

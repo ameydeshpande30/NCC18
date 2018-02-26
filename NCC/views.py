@@ -10,15 +10,18 @@ from django.core import serializers
 
 upath = ""
 totalquestion = 6
-endtime = 0
-startTime = 0
+endtime = 60*60
+startTime = 60
 TotalUser = Player.objects.all().count()
-
+Password = "Hello"
 
 def addquestion():
     q = Questions.objects.create(title="Test Question", completeques="this is the /n question",
                                  qid=1, qlevel=0, ac=0)
     q.save()
+
+def addT(request):
+    return render(request,"addTime.html")
 
 
 def addsTime():
@@ -45,10 +48,36 @@ def start(request):
 
 def setEndtime(request):
     global endtime
-    addtime = request.GET["time"]
-    now = datetime.datetime.now()
-    time = now.second + now.minute * 60 + now.hour * 60 * 60
-    endtime = time + addtime
+    addtime = request.POST["time"]  #time is in seconds
+    password = request.POST["pass"]
+    if password == Password:
+        endtime = endtime + int(addtime)
+        return HttpResponse("Done")
+    else:
+        return HttpResponse("Wrong")
+
+def addusertime(request):
+    uname = request.POSt['uname']
+    addtime = request.POST["time"]  #time is in seconds
+    password = request.POST["pass"]
+    if password == Password:
+        u = User.objects.get(username=uname)
+        p = u.player
+        p.time = addtime
+        p.save()
+        return HttpResponse("Done")
+    else:
+        return HttpResponse("Wrong")
+
+def setStarttime(request):
+    global startTime
+    addtime = request.POST["time"]  #time is in seconds
+    password = request.POST["pass"]
+    if password == Password:
+        startTime = startTime + int(addtime)
+        return HttpResponse("Done")
+    else:
+        return HttpResponse("Wrong")
 
 
 def checkTimeslot(request):
@@ -126,7 +155,9 @@ def signup(request):
                                             p2email=p2email,
                                             p1mno=p1mno, p2mno=p2mno, score=0, time=time,
                                             q1_score=0, q2_score=0, q3_score=0, q4_score=0,
-                                            q5_score=0, q6_score=0, subtime=0, level=level, rank=0)
+                                            q5_score=0, q6_score=0, subtime=0, level=level, rank=0,
+                                            gender1=gender1,gender2=gender2
+                                            )
         user_object.save()
         u2 = authenticate(request, username=uname, password=password)
         # print(TotalUser)
@@ -161,7 +192,7 @@ def userFolderCreate(request):
 def set():
     path = os.path.dirname(os.path.abspath(__file__))
     path = path + "/judge/USERS"
-    # print("***User Folder Created***")
+    print("***User Folder Created***")
     if not os.path.exists(path):
         os.mkdir(path)
     global upath
@@ -235,14 +266,17 @@ def test(request):
     x = x[-1]
     x = str(x)
     q = Attempt.objects.all().filter(user=request.user, qid=x)
+    que = Questions.objects.get(qid=x)
     score = request.user.player.score
     setRank(request)
     context = {
         'x': x,
         'q': q,
+        'que':que,
         'score': score,
         'rank': request.user.player.rank,
-        'rt': rtime(request)
+        'rt': rtime(request),
+        'uname':request.user.username
 
     }
 
@@ -424,12 +458,13 @@ def leaderboard(request):
     }
     return render(request, 'leaderboard.html', context)
 
-
-def centralServer(request):
+def centralServeru(request):
     return HttpResponse(
-        serializers.serialize("json", Player.objects.all()),
+        serializers.serialize("json", User.objects.all()),
         content_type="application/json"
     )
+
+
 
 
 def MySubmissions(request):
