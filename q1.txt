@@ -1,0 +1,29 @@
+Ayush was absent for a week in his M-ii classes,so subject teacher of M-ii decided to give Ayush a special assignment.
+Ayush has given an Array of size N, his task is to find difference between Max of Array and Min of Array,Ayush thinks U are very good programmer so he asks for your help,can u help him?
+//n
+Input :-//n
+First line contains no. of test cases given to Ayush (T)
+First line of each test case is size of array (N)
+Second line of each test case contains N elements (A[i]) i.e. elements of Array
+
+Output :-
+For each test case output Max of Array - Min of Array
+
+Constraints :-
+1<=T<=10
+1<=N<=10000
+-1e9<=A[i]<=1e9
+
+Subtask 1:-
+1<=N<=1000
+Subtask 2:-
+1<=N<=10000
+
+
+Sample Input :-
+1
+10
+-19 20 45 67 -89 57 65 -32 -53 55
+
+Sample Output :-
+156
