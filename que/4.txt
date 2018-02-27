@@ -1,0 +1,44 @@
+A plane contains L distinct lines and C distinct circles, figure out a way to maximize the number of points of intersections.
+Hence, print the maximum number of intersection points possible in the plane.
+
+PS : As the points of intersections need to be finite, NO TWO LINES SHOULD COINCIDE AND NO TWO CIRCLES SHOULD COINCIDE. xD xD
+
+INPUT :
+	1.)T (Number of test Cases )
+	2.)First line of each test case contains two space separated integers L and C
+
+OUTPUT:
+For each test case print the Maximum number of points of intersections of L lines and C circles on new line.
+
+CONSTRAINTS
+
+1<=T<=100
+0<=L<=100
+0<=C<=100
+
+Subtask #1 20 M
+
+	1<=T<=10
+	0<=L<=10
+	0<=C<=10
+	
+Subtask #2 20 M
+	
+	1<=T<=20
+	0<=L<=20
+	0<=C<=20
+
+Example
+
+Sample Input
+
+2
+8 4
+2 3
+
+Output
+
+104
+19
+
+

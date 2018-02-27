@@ -1,0 +1,44 @@
+Most awaited event of PICT "Addiction 2k19" is there in 3 days
+This time Addiction has added a special contest named "Couple Dance".
+N students took part in contest,and every student can dance with any number of remaining students.
+Addiction team conducts a survey in which  they ask each student  ,how many students he/she danced with?
+
+Addiction team wants to check if recorded data is valid or not?(Whether any student lied xD)
+
+Input :-
+No. of Surveys (T)
+First line of each survey is no. of students surveyed (N)
+Second line of Each survey has N integers denoting ith person danced with A[i] no. of people
+
+Output :-
+For each Survey print Result on new line
+if survey can be correct print "possible"
+if survey is gone wrong print "impossible"
+
+Constraints :-
+1<=T<=100
+1<=N<=100
+1<=A[i]<=1000000000
+
+Subtask #1
+1<=T<=10
+1<=N<=10
+1<=A[i]<=10000
+
+Subtask #2 
+1<=T<=100
+1<=N<=100
+1<=A[i]<=100000
+
+
+Sample Input:-
+3
+2
+1 1 1
+3
+2 1 1
+
+Sample Output :-
+impossible
+possible
+

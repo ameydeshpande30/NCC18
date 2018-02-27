@@ -1,0 +1,56 @@
+Tejas owns a godown.
+His godown has 10000000 rooms and these rooms are numbered from 2 to 10000001.Every room has a light bulb and a switch board. 
+Tejas is very much fond of digital programming, he tries to trick his friend Mihir by programming the switch boards in such a way that:
+
+i) a bulb couldn't be lit from the switch board in the room where it is placed.
+ii) Switch board located in room number R is used to lit all the bulbs which are located in room number 2R,3R,4R,....and so on.
+ 
+Initially all the bulbs are in OFF state. 
+
+Tejas asks his friend Mihir to go sequentially from Room number 2 to 10000001 and switch on all the bulbs that could be switched on.
+Mihir then found out that  some of the rooms are still dark.
+Find the number of dark rooms.
+
+
+
+INPUT :
+	1.)T (Number of test Cases )
+	2.)Each test case contains room no R
+
+OUTPUT:
+For each test case print "DARK" if the room is dark.Print "LIT" otherwise on a newline.
+
+CONSTRAINTS
+
+1<=T<=1000000
+2<=R<=1000000
+
+Subtask #1 
+
+	1<=T<=100
+	2<=R<=1000
+	
+	
+Subtask #2 
+	
+	1<=T<=1000000
+        2<=R<=10000000
+	
+
+Example
+
+Sample Input
+
+2
+12
+39
+
+Output
+
+LIT
+DARK
+
+
+
+
+

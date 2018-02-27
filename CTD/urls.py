@@ -20,6 +20,7 @@ from NCC import views
 views.set()
 views.addsTime()
 urlpatterns = [
+    url('admin/', admin.site.urls),
     url(r'loginpage',views.loginpage),
     url(r'login',views.log_in),
     url(r'^testp',views.testp),
@@ -38,7 +39,6 @@ urlpatterns = [
     url(r'^testp$',views.testp),
     url(r'^code',views.CodeSave),
     url(r'^test',views.test),
-    url('admin/', admin.site.urls),
     url(r'^question',views.signup),
     url(r'^signup',views.signup),
     url(r'^$', views.start),

@@ -35,7 +35,7 @@ class Player(models.Model):
 
 
 class Questions(models.Model):
-    title = models.CharField(max_length=10)
+    title = models.CharField(max_length=100)
     completeques = models.CharField(max_length=5000)
     qid = models.IntegerField(default=0)
     ac = models.IntegerField(default=0)

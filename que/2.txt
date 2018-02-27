@@ -1,0 +1,40 @@
+Akshat has bad habit of forgetting the numeric part of password of his mis portal. He clearly remembers it to be number of digits of a number(n). But he has forgot that number too. So he asks for your help.
+      He gives you a number(n) and asks you to generate the passowrd. You have to output number of digits in n.
+      
+Input :
+      1. First line contains number of testcases (T).  T lines follow      
+      2. Each line contains a number(n)
+
+Output :
+      For each testcase print number of digits in the number(n).
+
+Constraints :
+      1<=T<=10
+    0<=n<=10^18
+
+Subtask #1 
+	1<=T<=10
+	0<=n<=10^5
+
+Subtask #2 
+	1<=T<=10
+	0<=n<=10^9
+
+Example
+
+Input
+5
+1
+12
+123
+1234
+12345
+
+Output
+1
+2
+3
+4
+5
+
+

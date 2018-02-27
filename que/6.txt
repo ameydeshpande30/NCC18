@@ -1,0 +1,23 @@
+Hunger Game is going among Monsters,Every Monsters has some strength value associated with it
+It is known that a Monster "A" can eat Monster "B" only if, B has strength level strictly  less than monster A
+and also no Monster can eat more than 1 monster
+God Monster wants to know that at last how many minimum no. of monsters that can survive at the end, God Monster finds this a very difficult job so he asks your help
+Note:- God monster isn't the part of Game
+
+Input:-
+	First line contains no. of Games(T)
+	First line of every Game is no. of Monsters(N)
+	Next line of every game contains strength value of each Monsters(A[i])
+	
+Output:-
+	for each Game print no. of Monsters alive on new line
+	
+Constraints:-
+	1<=T<=10
+	1<=N<=10000
+	1<=A[i]<=1000000000
+	
+Subtask 1:-
+	1<=N<=500
+Subtask 2:-
+	1<=N<=10000

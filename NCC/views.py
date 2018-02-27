@@ -191,7 +191,8 @@ def signup(request):
             'tu': TotalUser,
             'rt': rtime(request)
         }
-        return render(request, 'QuestionPage.html', context)
+        return questionhub(request)
+        #return render(request, 'QuestionPage.html', context)
     else:
         return start(request)
 
@@ -288,8 +289,10 @@ def test(request):
     que = Questions.objects.get(qid=x)
     score = request.user.player.score
     setRank(request)
-    f = open("q1.txt", "r")
+    file = "que/" + str(x) + ".txt"
+    f = open(file, "r")
     data = f.read()
+    f.close()
     context = {
         'x': x,
         'q': q,
@@ -329,9 +332,25 @@ def questionhub(request):
         return leaderboard(request)
     q = Questions.objects.all().filter(qlevel=request.user.player.level)
     # print(q.filter(qid=1))
+    q1 = q.get(qid=1)
+    q2 = q.get(qid=2)
+    q3 = q.get(qid=3)
+    q4 = q.get(qid=4)
+    q5 = q.get(qid=5)
+    q6 = q.get(qid=6)
     context = {
-        'q1': q.get(qid=1),
-        'tu': TotalUser,
+        'q1': q1,
+        'q2': q2,
+        'q3': q3,
+        'q4': q4,
+        'q5': q5,
+        'q6': q6,
+        'ac1': (q1.ac*100)/TotalUser,
+        'ac2': (q2.ac*100)/TotalUser,
+        'ac3': (q3.ac * 100) / TotalUser,
+        'ac4': (q4.ac * 100) / TotalUser,
+        'ac5': (q5.ac * 100) / TotalUser,
+        'ac6': (q6.ac * 100) / TotalUser,
         'rt': rtime(request)
     }
     return render(request, 'QuestionPage.html', context)
