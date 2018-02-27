@@ -51,10 +51,27 @@ def setEndtime(request):
     addtime = request.POST["time"]  #time is in seconds
     password = request.POST["pass"]
     if password == Password:
-        endtime = endtime + int(addtime)
+        now = datetime.datetime.now()
+        time = now.second + now.minute * 60 + now.hour * 60 * 60
+        endtime = time + int(addtime)
         return HttpResponse("Done")
     else:
         return HttpResponse("Wrong")
+
+
+def log_in(request):
+    if request.method == 'POST':
+        uname = request.POST.get('uname')
+        password = request.POST.get("pass")
+        apass = request.POST.get('apass')
+        if(apass == Password):
+            u2 = authenticate(request, username=uname, password=password)
+            login(request, u2)
+            return questionhub(request)
+    return loginpage(request)
+
+def loginpage(request):
+    return render(request,"login.html")
 
 def addusertime(request):
     uname = request.POSt['uname']
@@ -74,7 +91,9 @@ def setStarttime(request):
     addtime = request.POST["time"]  #time is in seconds
     password = request.POST["pass"]
     if password == Password:
-        startTime = startTime + int(addtime)
+        now = datetime.datetime.now()
+        time = now.second + now.minute * 60 + now.hour * 60 * 60
+        startTime = time + int(addtime)
         return HttpResponse("Done")
     else:
         return HttpResponse("Wrong")
@@ -269,10 +288,13 @@ def test(request):
     que = Questions.objects.get(qid=x)
     score = request.user.player.score
     setRank(request)
+    f = open("q1.txt", "r")
+    data = f.read()
     context = {
         'x': x,
         'q': q,
         'que':que,
+        'data':data,
         'score': score,
         'rank': request.user.player.rank,
         'rt': rtime(request),

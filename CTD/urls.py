@@ -20,6 +20,8 @@ from NCC import views
 views.set()
 views.addsTime()
 urlpatterns = [
+    url(r'loginpage',views.loginpage),
+    url(r'login',views.log_in),
     url(r'^testp',views.testp),
     url('^sta',views.addT),
     url(r'^addstart',views.setStarttime),

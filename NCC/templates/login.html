@@ -1,47 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    {% load staticfiles %}
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
 
-     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/style.css" type="text/css" media="all">
+<script type="text/javascript">
+        window.history.forward();
+        function noBack()
+        {
+            window.history.forward();
+        }
+</script>
 
-
+<body id="page" onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 </head>
+ <style>
+    body {
+        background-image: url("{% static "ci/back.jpg" %}");
+        /*padding-top: 70px;*/
+        background-size: cover;
+        overflow: hidden;
+
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    .img1{
+height: 45px;
+width: 150px;
+border-radius:10px;
+
+margin-top: -90px;
+margin-left:590%;
+
+
+}
+.img2{
+height: 75px;
+width: 90px;
+border-radius:10px;
+margin-top: -18px;
+margin-left: -35px;
+}
+#nav1{
+            background:rgba(0,0,0,0.7);
+            height:5px;
+            margin-bottom:8px;
+}
+
+ </style>
 <body>
-    <div class="container">
-    <div class="col-lg-6">
-    <form class="form-horizontal" method="post" action="/questionsLogin/">
-            {% csrf_token %}
-        <div class="form-group">
-            <label for="user">Username</label>
-            <input  class="form-control" type="text" id="user" name="username" >
-        </div>
+   <nav class="navbar navbar-inverse" id="nav1">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+    <img src="{% static "ci/clashlogo.png" %}"  class="img2">
+    <img src="{% static "ci/pict.png" %}"  class="img1 ">
 
 
-        <div class="form-group">
-            <label for="user">Password</label>
-            <input  class="form-control" type="password" id="pass" name="password" >
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-
-    </form>
-    </div>
     </div>
 
 
+  </div>
+</nav>
+
+<div class="container">
 
 
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="jumpborton" style="margin-top:20%">
+            <form action="/login" method="post">
 
 
+                <legend>Login</legend>
+                <fieldset>
+				{% csrf_token %}
+                 {{str}}
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Enter Username" name="uname" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter Password" name="pass" required>
+                </div>
+                    <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter Admin Password" name="apass" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Login</button>
+                </div>
+                </fieldset>
+
+            </form>
+
+             </div>
+               </div>
+        <div  class="col-md-4"></div>
 
 
+ </div>
 
-<script src="/static/jquery/dist/jquery.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>
