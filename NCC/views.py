@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 import datetime
 import os
-import string
+from collections import defaultdict
 from django.core import serializers
 
 upath = ""
@@ -424,20 +424,24 @@ def CodeSave(request):
     ans = os.popen("python NCC/judge/main.py " + str(time) + "." + str(code) + " " + u + " " + q).read()
     # ans = ans[::-1]
     ans = int(ans)
-    # print(ans)
+    print(ans)
     tcOut = [0, 1, 2, 3, 4]
+    #switch = defaultdict(lambda: 2)
     switch = {
+
         10: 0,
         99: 1,
         50: 2,
         89: 3,
-        70: 4
+        70: 4,
     }
     score = 0
     for i in range(0, 5):
         data[i] = ans % 100
         ans = int(ans / 100)
-        tcOut[i] = switch[data[i]]
+
+        #tcOut[i] = switch[data[i]]
+        tcOut[i] = switch.get(data[i], 2)
         if tcOut[i] == 0:
             score = score + 20
     # print(tcOut)
@@ -481,6 +485,7 @@ def CodeSave(request):
             q = Questions.objects.get(qid=x)
             q.ac = q.ac + 1
             q.qsub = q.qsub + 1
+            q.save()
         s.score = s.score + score - sv
         # s.qscore[x] = score
         setattr(s, qscore[x], score)

@@ -86,6 +86,7 @@ def main():
 
 
 a = main()
+
 ans = 0
 if(a != -89):
     for i in range(0,5):
@@ -96,6 +97,9 @@ if(a != -89):
         ans = ans *100 + a[i]
 else:
     ans = 8989898989
+
+f = open("test.txt","w")
+f.write(str(ans))
 print(ans)
 sys.exit(0)
 # 10 = right answer
